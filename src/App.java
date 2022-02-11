@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class App {
 static final String DB_URL = "jdbc:mysql://localhost:3306/Capstone";
-static final String USER = "root"; //username created in mySQL query check
+static final String USER = "root"; //username created in mySQL query bbbb
 static final String PASS = "password"; //password created in mySQL query
 public static void main(String[] args) throws SQLException {
 //open a connection 
