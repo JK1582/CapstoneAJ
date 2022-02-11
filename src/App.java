@@ -1,6 +1,7 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -45,11 +46,18 @@ public class App {
             System.out.println("Enter email: ");
             String empEmail = myObj.nextLine();
 
-            String insert_sql = "insert into " + company_name + "_employees "
-                    + " (id, fname, lname, email)" + " values (id, fname, lname, email)";
-            stmt.executeUpdate(insert_sql);
-            // TODO: should we give user ability to upload csv or stick to one by one
-            // entries?
+            // the mysql insert statement
+		      String query = " insert into " + company_name + "_employees  (id, fname, lname, email)"
+              + " values (?, ?, ?, ?)";
+
+            // create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString (1, empId);
+            preparedStmt.setString (2, firstName);
+            preparedStmt.setString   (3, lastName);
+            preparedStmt.setString    (4, empEmail);
+            preparedStmt.execute();
+            // TODO: should we give user ability to upload csv or stick to one by one entries?
             System.out.println("Data inserted.");
         } catch (SQLException e) {
             e.printStackTrace();
