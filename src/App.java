@@ -27,7 +27,7 @@ public class App implements ActionListener{
         // the clickable button
         JButton enterButton = new JButton("Log In");
         enterButton.addActionListener(this);
-        enterButton.setVisible(false);
+        //enterButton.setVisible(false);
 
         // the panel with the button and text
         JPanel panel = new JPanel();
