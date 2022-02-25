@@ -19,7 +19,7 @@ public class App implements ActionListener{
 
     public static void main(String[] args) throws SQLException {
 		new App();
-		AddEmployees();
+		//AddEmployees();
 	}
 
 	public App() {
@@ -84,11 +84,16 @@ public class App implements ActionListener{
 		try {
 			frame.setVisible(false);
 			AddCompany();
+			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+<<<<<<< HEAD
 		
+=======
+		//frame.setVisible(false);
+>>>>>>> d8bb74567e88f4e73c0fcc4aea0afd8a7f0aff62
 		label.setText("booo");
 	}
     public static void AddCompany () throws SQLException {
