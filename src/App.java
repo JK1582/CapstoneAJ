@@ -15,6 +15,7 @@ public class App implements ActionListener{
     static final String PASS = "password"; // password created in mySQL query
 	private JLabel label = new JLabel(" ");
     private JFrame frame = new JFrame();
+	public static JFrame menuFrame = new JFrame();
 
     public static void main(String[] args) throws SQLException {
 		new App();
@@ -26,7 +27,7 @@ public class App implements ActionListener{
         // the clickable button
         JButton enterButton = new JButton("Log In");
         enterButton.addActionListener(this);
-        
+        enterButton.setVisible(false);
 
         // the panel with the button and text
         JPanel panel = new JPanel();
@@ -45,15 +46,49 @@ public class App implements ActionListener{
         frame.pack();
         frame.setVisible(true);
     }
+
+	public static void optionsDisplay() {
+    	JPanel panel = new JPanel();
+        
+    	JButton viewEmployees = new JButton("View Employees");
+    	//TODO viewEmployees.addActionListener(new actionPerformed()); //need to add event for view employees
+    	
+    	JButton addEmployees = new JButton("Add Employees");
+    	//TODO addEmployees.addActionListener(new actionPerformed()); //need to add event 
+    	
+    	JButton deleteEmployees = new JButton("Delete Employees");
+    	//TODO deleteEmployees.addActionListener(new actionPerformed()); //need to add event 
+    	
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel.setLayout(new GridLayout());
+        //panel.add(label);
+        panel.add(viewEmployees);
+        panel.add(addEmployees);
+        panel.add(deleteEmployees);
+
+
+        
+
+        // set up the frame and display it
+        menuFrame.add(panel, BorderLayout.CENTER);
+        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menuFrame.setTitle("Phising service");
+        
+        menuFrame.pack();
+        menuFrame.setVisible(true);
+    }
+
 	// process the button clicks
 	public void actionPerformed(ActionEvent e) {
 		//clicks++;
 		try {
+			frame.setVisible(false);
 			AddCompany();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 		label.setText("booo");
 	}
     public static void AddCompany () throws SQLException {
@@ -74,7 +109,8 @@ public class App implements ActionListener{
 	ResultSet tables = dbm.getTables(null, null, tblName, null);
 	if(tables.next()) {	
 		JOptionPane.showMessageDialog(null, "Company Already Exists", "Results", JOptionPane.PLAIN_MESSAGE );
-    }
+		//TODO: Add did you mean sign in option 
+	}
 	else{
 		JOptionPane.showMessageDialog(null, "Creating Company", "Results", JOptionPane.PLAIN_MESSAGE );
 	String sql_table = "CREATE TABLE " + company_name + "_employees " +
@@ -86,6 +122,7 @@ public class App implements ActionListener{
 	
 	stmt.executeUpdate(sql_table);
 	JOptionPane.showMessageDialog(null, "Created Company", "Results", JOptionPane.PLAIN_MESSAGE );
+	optionsDisplay();
 	}    			
 } 
 
