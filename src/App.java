@@ -18,7 +18,7 @@ public class App implements ActionListener{
 
     public static void main(String[] args) throws SQLException {
 		new App();
-		AddEmployees();
+		//AddEmployees();
 	}
 
 	public App() {
@@ -49,11 +49,14 @@ public class App implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//clicks++;
 		try {
+			frame.setVisible(false);
 			AddCompany();
+			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		//frame.setVisible(false);
 		label.setText("booo");
 	}
     public static void AddCompany () throws SQLException {
