@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -5,18 +8,54 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
-import javax.swing.JOptionPane;
-public class App {
+public class App implements ActionListener{
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/Capstone";
     static final String USER = "root"; // username created in mySQL query bbbb
     static final String PASS = "password"; // password created in mySQL query
+	private JLabel label = new JLabel(" ");
+    private JFrame frame = new JFrame();
 
     public static void main(String[] args) throws SQLException {
+		new App();
 		AddEmployees();
 	}
 
+	public App() {
+
+        // the clickable button
+        JButton enterButton = new JButton("Log In");
+        enterButton.addActionListener(this);
+        
+
+        // the panel with the button and text
+        JPanel panel = new JPanel();
+        
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel.setLayout(new GridLayout());
+        panel.add(label);
+        panel.add(enterButton);
+        
+
+        // set up the frame and display it
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Phising service");
+        
+        frame.pack();
+        frame.setVisible(true);
+    }
+	// process the button clicks
+	public void actionPerformed(ActionEvent e) {
+		//clicks++;
+		try {
+			AddCompany();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		label.setText("booo");
+	}
     public static void AddCompany () throws SQLException {
 	 // open a connection
 	 try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
