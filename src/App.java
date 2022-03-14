@@ -1,6 +1,23 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JFrame;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -8,178 +25,253 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-public class App implements ActionListener{
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/Capstone";
-    static final String USER = "root"; // username created in mySQL query bbbb
-    static final String PASS = "password"; // password created in mySQL query
-	private JLabel label = new JLabel(" ");
-    private JFrame frame = new JFrame();
-	public static JFrame menuFrame = new JFrame();
-
-    public static void main(String[] args) throws SQLException {
-		new App();
-		//AddEmployees();
+public class App {
+	static final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
+	static final String USER = "newuser"; // username created in mySQL query
+	static final String PASS = "password"; // password created in mySQL query
+	private static JFrame frame;
+	private static JTextField input;
+	private static JLabel id_label;	
+	private static JTextField input_id;
+	private static JLabel fname_label;	
+	private static JTextField input_fname;
+	private static JLabel lname_label;	
+	private static JTextField input_lname;
+	private static JLabel email_label;	
+	private static JTextField input_email;
+	private static JLabel label;	
+	private static JButton button1;
+	private static JButton addEmployees;
+	private static JButton viewEmployees;
+	private static JButton deleteEmployees;
+	private static JButton addBttn;
+	static String company_name;
+	private int width; 
+	private int height;
+	
+	public App(int w, int h) {
+		frame = new JFrame();
+		label = new JLabel("<html>Welcome! Please enter your company name to login.</html>");
+		
+		input = new JTextField(10);
+		button1 = new JButton("Log In");
+		viewEmployees = new JButton("View Employees");
+    	
+    	addEmployees = new JButton("Add Employees");
+    	
+    	deleteEmployees = new JButton("Delete Employees");
+    	id_label = new JLabel("Enter ID: ");
+    	input_id = new JTextField(10);
+    	fname_label = new JLabel("Enter first name: ");
+    	input_fname = new JTextField(10);
+    	lname_label = new JLabel("Enter last name: ");
+    	input_lname = new JTextField(10);
+    	email_label = new JLabel("Enter email: ");
+    	input_email = new JTextField(10);
+    	
+    	addBttn = new JButton("Add Employee");
+		width = w;
+		height = h;
 	}
+	
+	public static void AddEmployees() throws SQLException {
+		// open a connection
+		//addEmployeeDisplay();
+		addEmployees.setVisible(false);
+		viewEmployees.setVisible(false);
+		deleteEmployees.setVisible(false);
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement stmt = conn.createStatement();) {
+			
+			DatabaseMetaData dbm = conn.getMetaData();
+			String tblname = company_name + "_employees";
+			ResultSet tables = dbm.getTables(null, null, tblname, null);
+			
+			
+			
+			String end = "yes";
+			if (tables.next()) {
+				while (end.equals("yes")) {
+					String empId = JOptionPane.showInputDialog("Enter ID");
+					String firstName = JOptionPane.showInputDialog("Enter First Name");
+					String lastName = JOptionPane.showInputDialog("Enter Last Name");
+					String empEmail = JOptionPane.showInputDialog("Enter Email");
 
-	public App() {
+					// the mysql insert statement
+					String query = " insert into " + company_name + "_employees  (id, fname, lname, email)"
+							+ " values (?, ?, ?, ?)";
 
-        // the clickable button
-        JButton enterButton = new JButton("Log In");
-        enterButton.addActionListener(this);
-        //enterButton.setVisible(false);
+					// create the mysql insert preparedstatement
+					PreparedStatement preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, empId);
+					preparedStmt.setString(2, firstName);
+					preparedStmt.setString(3, lastName);
+					preparedStmt.setString(4, empEmail);
+					preparedStmt.execute();
+					JOptionPane.showMessageDialog(null, "Employee Has Been Added", "Results",
+							JOptionPane.PLAIN_MESSAGE);
+					end = JOptionPane.showInputDialog("Would you like to continue?");
 
-        // the panel with the button and text
-        JPanel panel = new JPanel();
+				}
+			} else {
+				//optionsDisplay();
+				
+			}
+			addEmployees.setVisible(true);
+			viewEmployees.setVisible(true);
+			deleteEmployees.setVisible(true);
+		}
+
+	}
+	public static void optionsDisplay() {
+		//String cname = company_name;
+		Container cp = frame.getContentPane();
+		FlowLayout flow = new FlowLayout();
+		cp.setLayout(flow);
+		frame.setSize(640, 480); //same width/height as GUI set up 
         
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout());
-        panel.add(label);
-        panel.add(enterButton);
-        
+        cp.add(viewEmployees);
+        cp.add(addEmployees);
+        cp.add(deleteEmployees);
 
-        // set up the frame and display it
-        frame.add(panel, BorderLayout.CENTER);
+
+  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Phising service");
         
-        frame.pack();
         frame.setVisible(true);
     }
-
-	public static void optionsDisplay() {
-    	JPanel panel = new JPanel();
+	public static void addEmployeeDisplay() {
+		Container cp = frame.getContentPane();
+		FlowLayout flow = new FlowLayout();
+		cp.setLayout(flow);
+		frame.setSize(640, 480); //same width/height as GUI set up 
+		frame.setTitle("Add Employee");
+		cp.add(id_label);
+		cp.add(input_id);
+		cp.add(fname_label);
+		cp.add(input_fname);
+		cp.add(lname_label);
+		cp.add(input_lname);
+		cp.add(email_label);
+		cp.add(input_email);
+		cp.add(addBttn);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-    	JButton viewEmployees = new JButton("View Employees");
-    	//TODO viewEmployees.addActionListener(new actionPerformed()); //need to add event for view employees
-    	
-    	JButton addEmployees = new JButton("Add Employees");
-    	//TODO addEmployees.addActionListener(new actionPerformed()); //need to add event 
-    	
-    	JButton deleteEmployees = new JButton("Delete Employees");
-    	//TODO deleteEmployees.addActionListener(new actionPerformed()); //need to add event 
-    	
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout());
-        //panel.add(label);
-        panel.add(viewEmployees);
-        panel.add(addEmployees);
-        panel.add(deleteEmployees);
+        frame.setVisible(true);
+	}
 
+	 public static void AddCompany() throws SQLException {
+			// open a connection
+			try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+					Statement stmt = conn.createStatement();) {
 
-        
+				// --CREATE TABLE TO HOLD COMPANY EMPLOYEE INFO--
+				// this is going to act as like "logging in" for the company... lets remember
+				// that for the GUI
+				// user input of employee name
+				//String company_name = JOptionPane.showInputDialog("Enter Company");
+				company_name = input.getText();
+				// TODO: add error checking logic to see if table already exists etc.
 
-        // set up the frame and display it
-        menuFrame.add(panel, BorderLayout.CENTER);
-        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menuFrame.setTitle("Phising service");
-        
-        menuFrame.pack();
-        menuFrame.setVisible(true);
-    }
+				// TODO: add error checking logic to see if table already exists etc.
+				String tblName = company_name + "_employees";
+				DatabaseMetaData dbm = conn.getMetaData();
+				ResultSet tables = dbm.getTables(null, null, tblName, null);
+				if (tables.next()) {
+					JOptionPane.showMessageDialog(null, "Company Already Exists", "Results", JOptionPane.PLAIN_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Creating Company", "Results", JOptionPane.PLAIN_MESSAGE);
+					String sql_table = "CREATE TABLE " + company_name + "_employees " + "(id INTEGER not NULL, "
+							+ " fname VARCHAR(255), " + " lname VARCHAR(255), " + " email VARCHAR(255), "
+							+ " PRIMARY KEY ( id ))";
 
-	// process the button clicks
-	public void actionPerformed(ActionEvent e) {
-		//clicks++;
-		try {
-			frame.setVisible(false);
-			AddCompany();
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+					stmt.executeUpdate(sql_table);
+					JOptionPane.showMessageDialog(null, "Company successfully created!", "Results", JOptionPane.PLAIN_MESSAGE);
+					//optionsDisplay();
+				}
+				button1.setVisible(false);
+				label.setVisible(false);
+				input.setVisible(false);
+				optionsDisplay();
+			}
+
 		}
+	public void setUpGUI() {
+		Container cp = frame.getContentPane();
+		FlowLayout flow = new FlowLayout();
+		cp.setLayout(flow);
+		frame.setSize(width, height);
+		frame.setTitle("Login");
+		cp.add(label);
+		cp.add(input);		
+		cp.add(button1);
+		//cp.add(button2);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
+	
+	public void setUpButtonListeners() {
+		ActionListener buttonListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				Object o = ae.getSource();
+				if(o == button1) {
+					//String s = input.getText();
+					//label.setText(s); //changes label value 
+					//input.setText("");
+					try {
+						AddCompany();
+						button1.setVisible(false);
+						label.setVisible(false);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("logged in ");
+				}
+				else if(o == addEmployees) {
+					System.out.println("lets add an employee");
+
+					try {
+						AddEmployees();
+						/*addEmployees.setVisible(false);
+						viewEmployees.setVisible(false);
+						deleteEmployees.setVisible(false);*/
+					}catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					addEmployees.setVisible(true);
+					viewEmployees.setVisible(true);
+					deleteEmployees.setVisible(true);
+					System.out.println("employee add ");
+				}
+				else if (o == viewEmployees) {
+					System.out.println("lets view employees");
+					try {
+						viewEmployees();
+					}catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					addEmployees.setVisible(true);
+					viewEmployees.setVisible(true);
+					deleteEmployees.setVisible(true);
+					System.out.println("employee viewed ");
+				}
+			}
+			
+		};	
 		
-		label.setText("booo");
+		button1.addActionListener(buttonListener);
+		addEmployees.addActionListener(buttonListener);
+		viewEmployees.addActionListener(buttonListener);
+		deleteEmployees.addActionListener(buttonListener);
+
 	}
-    public static void AddCompany () throws SQLException {
-	 // open a connection
-	 try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-	 Statement stmt = conn.createStatement();) {
-
-	// --CREATE TABLE TO HOLD COMPANY EMPLOYEE INFO--
-	//this is going to act as like "logging in" for the company... lets remember that for the GUI 
-	// user input of employee name
-	String company_name = JOptionPane.showInputDialog("Enter Company");
-
-	// TODO: add error checking logic to see if table already exists etc.
-
-   //TODO: add error checking logic to see if table already exists etc. 
-	String tblName = company_name + "_employees";
-	DatabaseMetaData dbm = conn.getMetaData();
-	ResultSet tables = dbm.getTables(null, null, tblName, null);
-	if(tables.next()) {	
-		JOptionPane.showMessageDialog(null, "Company Already Exists", "Results", JOptionPane.PLAIN_MESSAGE );
-		//TODO: Add did you mean sign in option 
-	}
-	else{
-		JOptionPane.showMessageDialog(null, "Creating Company", "Results", JOptionPane.PLAIN_MESSAGE );
-	String sql_table = "CREATE TABLE " + company_name + "_employees " +
-			   "(id INTEGER not NULL, " +
-			   " fname VARCHAR(255), " + 
-			   " lname VARCHAR(255), " + 
-			   " email VARCHAR(255), " + 
-			   " PRIMARY KEY ( id ))"; 
-	
-	stmt.executeUpdate(sql_table);
-	JOptionPane.showMessageDialog(null, "Created Company", "Results", JOptionPane.PLAIN_MESSAGE );
-	optionsDisplay();
-	}    			
-} 
-
-}
-public static void AddEmployees () throws SQLException {
-	// open a connection
-	try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-	Statement stmt = conn.createStatement();) {
-
-   // --CREATE TABLE TO HOLD COMPANY EMPLOYEE INFO--
-   //this is going to act as like "logging in" for the company... lets remember that for the GUI 
-   //Scanner myObj = new Scanner(System.in);
-   String company_name = JOptionPane.showInputDialog("Enter Company");
-   //System.out.println("Enter company name: "); // user input of employee name
-   //company_name = myObj.nextLine();
-
-   // TODO: add error checking logic to see if table already exists etc.
-
-  //TODO: add error checking logic to see if table already exists etc. 
-   String tblName = company_name + "_employees";
-   DatabaseMetaData dbm = conn.getMetaData();
-   ResultSet tables = dbm.getTables(null, null, tblName, null);
-   String end ="yes";
-   if(tables.next()) {	
-	   while (end.equals("yes")){
-	String empId = JOptionPane.showInputDialog("Enter ID");
-	String firstName = JOptionPane.showInputDialog("Enter First Name");
-	String lastName = JOptionPane.showInputDialog("Enter Last Name");
-	String empEmail = JOptionPane.showInputDialog("Enter Email");
-
 	
 	
-	
-
-	  // the mysql insert statement
-	  String query = " insert into " + company_name + "_employees  (id, fname, lname, email)"
-		+ " values (?, ?, ?, ?)";
-
-	  // create the mysql insert preparedstatement
-	  PreparedStatement preparedStmt = conn.prepareStatement(query);
-	  preparedStmt.setString (1, empId);
-	  preparedStmt.setString (2, firstName);
-	  preparedStmt.setString   (3, lastName);
-	  preparedStmt.setString    (4, empEmail);
-	  preparedStmt.execute();
-	JOptionPane.showMessageDialog(null, "Employee Has Been Added", "Results", JOptionPane.PLAIN_MESSAGE );
-	end = JOptionPane.showInputDialog("Would you like to continue?");
-	
-
-}
-   }
-   else {
-	JOptionPane.showMessageDialog(null, "Company Does Not Exist", "Results", JOptionPane.PLAIN_MESSAGE );
-   
-   }    			
-} 
-
-}
 }
