@@ -142,25 +142,6 @@ public class App {
         
         frame.setVisible(true);
     }
-	public static void addEmployeeDisplay() {
-		Container cp = frame.getContentPane();
-		FlowLayout flow = new FlowLayout();
-		cp.setLayout(flow);
-		frame.setSize(640, 480); //same width/height as GUI set up 
-		frame.setTitle("Add Employee");
-		cp.add(id_label);
-		cp.add(input_id);
-		cp.add(fname_label);
-		cp.add(input_fname);
-		cp.add(lname_label);
-		cp.add(input_lname);
-		cp.add(email_label);
-		cp.add(input_email);
-		cp.add(addBttn);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        frame.setVisible(true);
-	}
 
 	 public static void AddCompany() throws SQLException {
 			// open a connection
