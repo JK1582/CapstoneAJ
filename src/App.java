@@ -1,3 +1,4 @@
+package gui;
 import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,7 +27,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class App {
+public class GUIDemo {
 	static final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
 	static final String USER = "newuser"; // username created in mySQL query
 	static final String PASS = "password"; // password created in mySQL query
@@ -50,7 +51,7 @@ public class App {
 	private int width; 
 	private int height;
 	
-	public App(int w, int h) {
+	public GUIDemo(int w, int h) {
 		frame = new JFrame();
 		label = new JLabel("<html>Welcome! Please enter your company name to login.</html>");
 		
@@ -124,6 +125,39 @@ public class App {
 		}
 
 	}
+	public static void ViewEmployees() throws SQLException {
+		// open a connection
+		//addEmployeeDisplay();
+		addEmployees.setVisible(false);
+		viewEmployees.setVisible(false);
+		deleteEmployees.setVisible(false);
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement stmt = conn.createStatement();) {
+			
+			DatabaseMetaData dbm = conn.getMetaData();
+			String tblname = company_name + "_employees";
+			ResultSet tables = dbm.getTables(null, null, tblname, null);
+	        
+			Statement satmt = conn.createStatement();
+			String query = " SELECT * FROM " + company_name + "_employees";
+			ResultSet rs = stmt.executeQuery(query);	        
+			System.out.println("id   fname   lname   email");
+			String data = "";
+			while (rs.next()) {
+	            int id = rs.getInt("id");
+	            String fname = rs.getString("fname");
+	            String lname = rs.getString("lname");
+	            String email = rs.getString("email");
+	            System.out.println(id+"   "+fname+"    "+lname+"    "+email);
+	            data += id+"   "+fname+"    "+lname+"    "+email+ "\n";
+	         }
+			JOptionPane.showMessageDialog(frame, data);
+			addEmployees.setVisible(true);
+			viewEmployees.setVisible(true);
+			deleteEmployees.setVisible(true);
+		}
+
+	}
 	public static void optionsDisplay() {
 		//String cname = company_name;
 		Container cp = frame.getContentPane();
@@ -142,7 +176,6 @@ public class App {
         
         frame.setVisible(true);
     }
-
 	 public static void AddCompany() throws SQLException {
 			// open a connection
 			try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -233,7 +266,7 @@ public class App {
 				else if (o == viewEmployees) {
 					System.out.println("lets view employees");
 					try {
-						viewEmployees();
+						ViewEmployees();
 					}catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
