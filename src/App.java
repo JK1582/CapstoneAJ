@@ -75,7 +75,36 @@ public class GUIDemo {
 		width = w;
 		height = h;
 	}
-	
+	public static void DeleteEmployee() throws SQLException {
+		addEmployees.setVisible(false);
+		viewEmployees.setVisible(false);
+		deleteEmployees.setVisible(false);
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement stmt = conn.createStatement();) {
+				DatabaseMetaData dbm = conn.getMetaData();
+				String tblname = company_name + "_employees";
+				ResultSet tables = dbm.getTables(null, null, tblname, null);
+				String end = "yes";
+				if (tables.next()) {
+					while (end.equals("yes")) {
+						String empId = JOptionPane.showInputDialog("Enter ID");
+						
+
+						// the mysql insert statement
+						String query = " delete from " + company_name + "_employees where id=" + empId;
+
+						// create the mysql insert preparedstatement
+						PreparedStatement preparedStmt = conn.prepareStatement(query);
+						//preparedStmt.setString(1, empId);			
+						preparedStmt.execute();
+						JOptionPane.showMessageDialog(null, "Employee Has Been Removed", "Results",
+								JOptionPane.PLAIN_MESSAGE);
+						end = JOptionPane.showInputDialog("Would you like to continue?");
+
+					}
+				} 
+				
+		}
 	public static void AddEmployees() throws SQLException {
 		// open a connection
 		//addEmployeeDisplay();
@@ -275,6 +304,18 @@ public class GUIDemo {
 					viewEmployees.setVisible(true);
 					deleteEmployees.setVisible(true);
 					System.out.println("employee viewed ");
+				}
+				else if ( o == deleteEmployees) {
+					System.out.println("delete an employee");
+					try {
+						DeleteEmployee();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					addEmployees.setVisible(true);
+					viewEmployees.setVisible(true);
+					deleteEmployees.setVisible(true);
+					System.out.println("employee deleted ");
 				}
 			}
 			
