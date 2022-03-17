@@ -86,16 +86,16 @@ public class GUIDemo {
 				ResultSet tables = dbm.getTables(null, null, tblname, null);
 				String end = "yes";
 				if (tables.next()) {
-					System.out.println("entered1");
+				//	System.out.println("entered1");
 					while (end.equals("yes")) {
-						System.out.println("entered2");
+						//System.out.println("entered2");
 						String empId = JOptionPane.showInputDialog("Enter ID");
 						
 						String sql = "SELECT * FROM " + company_name + "_employees where id=" + empId;
 						ResultSet rs = stmt.executeQuery(sql);
 						
 						if(rs.next()) {
-							System.out.println("entered3");
+						//	System.out.println("entered3");
 							System.out.println("Success");
 							String query = " delete from " + company_name + "_employees where id=" + empId;
 							
@@ -110,18 +110,18 @@ public class GUIDemo {
 						}
 						else {
 							
-							System.out.println("entered4");
+						//	System.out.println("entered4");
 							JOptionPane.showMessageDialog(null, "Employee Does Not Exist", "Results",
 									JOptionPane.YES_NO_OPTION);
 							end = JOptionPane.showInputDialog("Would you like to continue?");
 							if(end == null) {
-								System.out.println("entered5");
+						//		System.out.println("entered5");
 								break;
 							}
 						}
 						// the mysql insert statement
 						if(end == null) {
-							System.out.println("entered6");
+						//	System.out.println("entered6");
 							end = "no";
 						}
 
