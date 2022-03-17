@@ -1,4 +1,3 @@
-package gui;
 import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -27,7 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GUIDemo {
+public class App {
 	static final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
 	static final String USER = "newuser"; // username created in mySQL query
 	static final String PASS = "password"; // password created in mySQL query
@@ -51,7 +50,7 @@ public class GUIDemo {
 	private int width; 
 	private int height;
 	
-	public GUIDemo(int w, int h) {
+	public App(int w, int h) {
 		frame = new JFrame();
 		label = new JLabel("<html>Welcome! Please enter your company name to login.</html>");
 		
@@ -85,17 +84,22 @@ public class GUIDemo {
 				String tblname = company_name + "_employees";
 				ResultSet tables = dbm.getTables(null, null, tblname, null);
 				String end = "yes";
+				outerloop:
 				if (tables.next()) {
-				//	System.out.println("entered1");
+					System.out.println("entered1");
 					while (end.equals("yes")) {
-						//System.out.println("entered2");
+						System.out.println("entered2");
 						String empId = JOptionPane.showInputDialog("Enter ID");
-						
+						if(empId==null) {
+							end="no";
+							break outerloop;
+							
+						}
 						String sql = "SELECT * FROM " + company_name + "_employees where id=" + empId;
 						ResultSet rs = stmt.executeQuery(sql);
 						
 						if(rs.next()) {
-						//	System.out.println("entered3");
+							System.out.println("entered3");
 							System.out.println("Success");
 							String query = " delete from " + company_name + "_employees where id=" + empId;
 							
@@ -110,18 +114,18 @@ public class GUIDemo {
 						}
 						else {
 							
-						//	System.out.println("entered4");
+							System.out.println("entered4");
 							JOptionPane.showMessageDialog(null, "Employee Does Not Exist", "Results",
 									JOptionPane.YES_NO_OPTION);
 							end = JOptionPane.showInputDialog("Would you like to continue?");
 							if(end == null) {
-						//		System.out.println("entered5");
+								System.out.println("entered5");
 								break;
 							}
 						}
 						// the mysql insert statement
 						if(end == null) {
-						//	System.out.println("entered6");
+							System.out.println("entered6");
 							end = "no";
 						}
 
@@ -130,6 +134,7 @@ public class GUIDemo {
 				
 		}
 	}
+	
 	public static void AddEmployees() throws SQLException {
 		// open a connection
 		//addEmployeeDisplay();
@@ -147,11 +152,33 @@ public class GUIDemo {
 			
 			String end = "yes";
 			if (tables.next()) {
+				outerloop:
 				while (end.equals("yes")) {
+					
 					String empId = JOptionPane.showInputDialog("Enter ID");
+					if(empId == null) {
+						System.out.println("entered1");
+						end="no";
+						break outerloop;
+					}
 					String firstName = JOptionPane.showInputDialog("Enter First Name");
+					if(firstName == null) {
+						System.out.println("entered1");
+						end="no";
+						break outerloop;
+					}
 					String lastName = JOptionPane.showInputDialog("Enter Last Name");
+					if(lastName == null) {
+						System.out.println("entered1");
+						end="no";
+						break outerloop;
+					}
 					String empEmail = JOptionPane.showInputDialog("Enter Email");
+					if(empEmail == null) {
+						System.out.println("entered1");
+						end="no";
+						break outerloop;
+					}
 
 					// the mysql insert statement
 					String query = " insert into " + company_name + "_employees  (id, fname, lname, email)"
@@ -167,9 +194,14 @@ public class GUIDemo {
 					JOptionPane.showMessageDialog(null, "Employee Has Been Added", "Results",
 							JOptionPane.PLAIN_MESSAGE);
 					end = JOptionPane.showInputDialog("Would you like to continue?");
+					if(end == null) {
+						System.out.println("entered2");
+						break;
+					}
 
 				}
 			} else {
+				
 				//optionsDisplay();
 				
 			}
@@ -179,6 +211,7 @@ public class GUIDemo {
 		}
 
 	}
+	
 	public static void ViewEmployees() throws SQLException {
 		// open a connection
 		//addEmployeeDisplay();
