@@ -86,25 +86,50 @@ public class GUIDemo {
 				ResultSet tables = dbm.getTables(null, null, tblname, null);
 				String end = "yes";
 				if (tables.next()) {
+					System.out.println("entered1");
 					while (end.equals("yes")) {
+						System.out.println("entered2");
 						String empId = JOptionPane.showInputDialog("Enter ID");
 						
-
+						String sql = "SELECT * FROM " + company_name + "_employees where id=" + empId;
+						ResultSet rs = stmt.executeQuery(sql);
+						
+						if(rs.next()) {
+							System.out.println("entered3");
+							System.out.println("Success");
+							String query = " delete from " + company_name + "_employees where id=" + empId;
+							
+							// create the mysql insert preparedstatement
+							PreparedStatement preparedStmt = conn.prepareStatement(query);
+							//preparedStmt.setString(1, empId);			
+							preparedStmt.execute();
+							JOptionPane.showMessageDialog(null, "Employee Has Been Removed", "Results",
+									JOptionPane.PLAIN_MESSAGE);
+							end = JOptionPane.showInputDialog("Would you like to continue?");							
+							
+						}
+						else {
+							
+							System.out.println("entered4");
+							JOptionPane.showMessageDialog(null, "Employee Does Not Exist", "Results",
+									JOptionPane.YES_NO_OPTION);
+							end = JOptionPane.showInputDialog("Would you like to continue?");
+							if(end == null) {
+								System.out.println("entered5");
+								break;
+							}
+						}
 						// the mysql insert statement
-						String query = " delete from " + company_name + "_employees where id=" + empId;
-
-						// create the mysql insert preparedstatement
-						PreparedStatement preparedStmt = conn.prepareStatement(query);
-						//preparedStmt.setString(1, empId);			
-						preparedStmt.execute();
-						JOptionPane.showMessageDialog(null, "Employee Has Been Removed", "Results",
-								JOptionPane.PLAIN_MESSAGE);
-						end = JOptionPane.showInputDialog("Would you like to continue?");
+						if(end == null) {
+							System.out.println("entered6");
+							end = "no";
+						}
 
 					}
 				} 
 				
 		}
+	}
 	public static void AddEmployees() throws SQLException {
 		// open a connection
 		//addEmployeeDisplay();
