@@ -4,6 +4,7 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "/Users/joekelley/Desktop/mysql-connector-java-8.0.28.jar",
-        "/Users/joekelley/Documents/Jars/mysql-connector-java.jar"
+        "/Users/joekelley/Downloads/javax.mail.jar",
+        "/Users/joekelley/Documents/Jars/javax.mail.jar"
     ]
 }
