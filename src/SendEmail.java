@@ -4,27 +4,51 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
+
+import com.mysql.cj.jdbc.DatabaseMetaData;
+
 import java.util.ArrayList;
 import java.io.File;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SendEmail {
 
     private static String USER_NAME = "JkelleyAKlein";  // GMail user name (just the part before "@gmail.com")
     private static String PASSWORD = "JKelleyAKlein1!"; // GMail password
 
-    public static void main(String[] args) {
+    //override -> copy & paste that & below it remove the params string, filename & remove the if statement where 
+    //it says if file exists
+    public static void main(String[] args) throws SqLException {
         String from = USER_NAME;
         String pass = PASSWORD;
-        String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Mutan#5226.jpg";
+        static final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
+        static final String USER = "newuser"; // username created in mySQL query
+        static final String PASS = "password"; // password created in mySQL query
+      //  String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Mutan#5226.jpg";
        // String[] to = { RECIPIENT }; // list of recipient email addresses
         String subject = "Hello";
         String body = "Welcome to The Jungle!";
         ArrayList<String> Emails = new ArrayList<String>();
-        //Emails.add("pirateshockey17@gmai.com");
-        Emails.add("JosephBoydKelley@gmai.com");
-        //Emails.add("Jk1582@mynsu.nova.edu");
-       //Emails.add("MadelineMcgowan974@gmail.com");
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement stmt = conn.createStatement();) {
+			
+			DatabaseMetaData dbm = (DatabaseMetaData) conn.getMetaData();
+			//TODO: get company name, change from hard coded
+			//String tblname = company_name + "_employees";
+			String tblname =  "_employees";
+			String query = " SELECT email FROM " + tblname;
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				String email = rs.getString("email");
+				System.out.println(email);
+				Emails.add(email);
+			}
+        }	
+
         
         for (String i : Emails) {
             String[] to = { i };

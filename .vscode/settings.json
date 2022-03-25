@@ -5,6 +5,9 @@
         "lib/**/*.jar",
         "/Users/joekelley/Desktop/mysql-connector-java-8.0.28.jar",
         "/Users/joekelley/Downloads/javax.mail.jar",
-        "/Users/joekelley/Documents/Jars/javax.mail.jar"
+        "/Users/joekelley/Documents/Jars/javax.mail.jar",
+        "/Users/autumnklein/Desktop/activation.jar",
+        "/Users/autumnklein/Desktop/mail.jar",
+        "/Users/autumnklein/Desktop/mysql-connector-java.jar"
     ]
 }

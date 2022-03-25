@@ -19,6 +19,7 @@ public class JavaEmail {
         System.out.println("Hello");
     }
 
+   
     private static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
@@ -65,3 +66,5 @@ public class JavaEmail {
         }
     }
 }
+
+//in send email class 

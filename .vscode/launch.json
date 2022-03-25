@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SendEmail",
+            "request": "launch",
+            "mainClass": "SendEmail",
+            "projectName": "CapstoneAJ_831fdb3f"
+        },
+        {
+            "type": "java",
+            "name": "Launch JavaEmail",
+            "request": "launch",
+            "mainClass": "JavaEmail",
+            "projectName": "CapstoneAJ_831fdb3f"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
