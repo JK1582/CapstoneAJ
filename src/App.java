@@ -116,7 +116,8 @@ public class App {
 	            String[] to = { i };
 	            sendFromGMail(from, pass, to, subject, body,"pass");
 	            System.out.println("Message Sent");
-	        }
+	    }
+		JOptionPane.showMessageDialog(frame, "Emails Sent, report will go here");
 	}
 	
 	private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
