@@ -1,4 +1,15 @@
 import javax.swing.JFrame;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -10,12 +21,15 @@ import java.awt.Insets;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Properties;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -45,6 +59,7 @@ public class App {
 	private static JButton viewEmployees;
 	private static JButton deleteEmployees;
 	private static JButton addBttn;
+	private static JButton generateReport;
 	static String company_name;
 	private int width; 
 	private int height;
@@ -70,9 +85,93 @@ public class App {
     	input_email = new JTextField(10);
     	
     	addBttn = new JButton("Add Employee");
+		generateReport = new JButton("Generate Report");
 		width = w;
 		height = h;
 	}
+
+	
+	public static void SendEmail() throws SQLException {
+		 String from = "JkelleyAKlein";  // GMail user name (just the part before "@gmail.com")
+		 String pass = "JKelleyAKlein1!"; // GMail password
+	     String subject = "Hello";
+	        String body = "Welcome to The Jungle!";
+	        ArrayList<String> Emails = new ArrayList<String>();
+	        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+					Statement stmt = conn.createStatement();) {
+				
+				DatabaseMetaData dbm = conn.getMetaData();
+				
+				String tblname = company_name + "_employees";
+				String query = " SELECT email FROM " + tblname;
+				ResultSet rs = stmt.executeQuery(query);
+				while(rs.next()) {
+					String email = rs.getString("email");
+					System.out.println(email);
+					Emails.add(email);
+				}
+				
+	        }
+	    for (String i : Emails) {
+	            String[] to = { i };
+	            sendFromGMail(from, pass, to, subject, body,"pass");
+	            System.out.println("Message Sent");
+	        }
+	}
+	
+	private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
+			String filename) {
+		Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+      
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pass);
+        
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+        
+
+        javax.mail.Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(from));
+            InternetAddress[] toAddress = new InternetAddress[to.length];
+
+            // To get the array of addresses
+            for( int i = 0; i < to.length; i++ ) {
+                toAddress[i] = new InternetAddress(to[i]);
+            }
+
+            for( int i = 0; i < toAddress.length; i++) {
+                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+            }
+
+            message.setSubject(subject);
+            File file = new File(filename);
+            if (file.exists()){
+            DataSource source = new FileDataSource(filename);
+            message.setDataHandler(new DataHandler(source)); 
+            message.setFileName(filename);
+            
+        }
+            message.setText(body);
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        }
+        catch (AddressException ae) {
+            ae.printStackTrace();
+        }
+        catch (MessagingException me) {
+            me.printStackTrace();
+        }
+    }
 	public static void DeleteEmployee() throws SQLException {
 		addEmployees.setVisible(false);
 		viewEmployees.setVisible(false);
@@ -254,6 +353,7 @@ public class App {
         cp.add(viewEmployees);
         cp.add(addEmployees);
         cp.add(deleteEmployees);
+        cp.add(generateReport);
 
 
   
@@ -347,6 +447,7 @@ public class App {
 					addEmployees.setVisible(true);
 					viewEmployees.setVisible(true);
 					deleteEmployees.setVisible(true);
+					generateReport.setVisible(true);
 					System.out.println("employee add ");
 				}
 				else if (o == viewEmployees) {
@@ -360,6 +461,7 @@ public class App {
 					addEmployees.setVisible(true);
 					viewEmployees.setVisible(true);
 					deleteEmployees.setVisible(true);
+					generateReport.setVisible(true);
 					System.out.println("employee viewed ");
 				}
 				else if ( o == deleteEmployees) {
@@ -372,7 +474,21 @@ public class App {
 					addEmployees.setVisible(true);
 					viewEmployees.setVisible(true);
 					deleteEmployees.setVisible(true);
+					generateReport.setVisible(true);
 					System.out.println("employee deleted ");
+				}
+				else if ( o == generateReport ) {
+					System.out.println("generate report");
+					try {
+						SendEmail();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					addEmployees.setVisible(true);
+					viewEmployees.setVisible(true);
+					deleteEmployees.setVisible(true);
+					generateReport.setVisible(true);
+					System.out.println("emails sent ");
 				}
 			}
 			
@@ -382,6 +498,7 @@ public class App {
 		addEmployees.addActionListener(buttonListener);
 		viewEmployees.addActionListener(buttonListener);
 		deleteEmployees.addActionListener(buttonListener);
+		generateReport.addActionListener(buttonListener);
 
 	}
 	

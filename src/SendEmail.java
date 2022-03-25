@@ -30,7 +30,7 @@ public class SendEmail {
         static final String PASS = "password"; // password created in mySQL query
       //  String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Mutan#5226.jpg";
        // String[] to = { RECIPIENT }; // list of recipient email addresses
-        String subject = "Hello";
+        String subject = "Hello"; 
         String body = "Welcome to The Jungle!";
         ArrayList<String> Emails = new ArrayList<String>();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
