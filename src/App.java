@@ -118,11 +118,11 @@ public class App {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String email = rs.getString("email");
-				String id = rs.getString("id");
+				Integer id = rs.getInt("id");
 				System.out.println(email);
 				System.out.println(id);
 				Emails.add(email);
-				Ids.add(id);
+				Ids.add(Integer.toBinaryString(id));
 				HashMap<String, String> a = new HashMap<>();
 				for (int i = 0; i < Ids.size(); i++) {
 					a.put(Ids.get(i), Emails.get(i));
