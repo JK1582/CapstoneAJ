@@ -29,6 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -97,6 +98,7 @@ public class App {
 	     String subject = "Hello";
 	        String body = ""; 
 	        ArrayList<String> Emails = new ArrayList<String>();
+			ArrayList<String> Ids = new ArrayList<String>();
 	        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 					Statement stmt = conn.createStatement();) {
 				
@@ -109,8 +111,15 @@ public class App {
 				ResultSet rs = stmt.executeQuery(query);
 				while(rs.next()) {
 					String email = rs.getString("email");
+					String id = rs.getString("id");
 					System.out.println(email);
+					System.out.println(id);
 					Emails.add(email);
+					Ids.add(id);
+					HashMap<String, String> a = new HashMap<>();
+					for(int i = 0; i < Ids.size(); i++) {
+					    a.put(Ids.get(i), Emails.get(i));
+					}
 				}
 				
 	        }
