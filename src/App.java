@@ -95,7 +95,7 @@ public class App {
 		 String from = "JkelleyAKlein";  // GMail user name (just the part before "@gmail.com")
 		 String pass = "JKelleyAKlein1!"; // GMail password
 	     String subject = "Hello";
-	        String body = "Welcome to The Jungle!";
+	        String body = ""; 
 	        ArrayList<String> Emails = new ArrayList<String>();
 	        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 					Statement stmt = conn.createStatement();) {
@@ -103,6 +103,8 @@ public class App {
 				DatabaseMetaData dbm = conn.getMetaData();
 				
 				String tblname = company_name + "_employees";
+
+				body = "<h1>This is actual message embedded in HTML tags</h1>";
 				String query = " SELECT email FROM " + tblname;
 				ResultSet rs = stmt.executeQuery(query);
 				while(rs.next()) {
@@ -160,7 +162,7 @@ public class App {
             message.setFileName(filename);
             
         }
-            message.setText(body);
+            message.setContent(body, "text/html");
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
