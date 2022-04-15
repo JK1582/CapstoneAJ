@@ -17,6 +17,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
 public class SendEmail {
 
     private static String USER_NAME = "JkelleyAKlein";  // GMail user name (just the part before "@gmail.com")
