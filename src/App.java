@@ -15,6 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -92,6 +100,13 @@ public class App {
 		height = h;
 	}
 
+	public static void SendReport() throws SchedulerException{
+		//use quartz job scheduler
+		JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
+		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger").withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(02).repeatForever()).build();
+
+	}
+	
 	public static void SendEmail() throws SQLException {
 		String from = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
 		String pass = "JKelleyAKlein1!"; // GMail password
