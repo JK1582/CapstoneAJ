@@ -9,6 +9,13 @@
             "name": "Launch SendEmail",
             "request": "launch",
             "mainClass": "SendEmail",
+            "projectName": "CapstoneAJ_76b6aef3"
+        },
+        {
+            "type": "java",
+            "name": "Launch SendEmail",
+            "request": "launch",
+            "mainClass": "SendEmail",
             "projectName": "CapstoneAJ_831fdb3f"
         },
         {

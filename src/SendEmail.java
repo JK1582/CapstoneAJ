@@ -4,7 +4,9 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.swing.text.html.HTML;
 
+import com.mysql.cj.conf.IntegerPropertyDefinition;
 import com.mysql.cj.jdbc.DatabaseMetaData;
 
 import java.util.ArrayList;
@@ -22,42 +24,54 @@ public class SendEmail {
 
     //override -> copy & paste that & below it remove the params string, filename & remove the if statement where 
     //it says if file exists
-    public static void main(String[] args) throws SqLException {
+    public static void main(String[] args) throws SQLException {
         String from = USER_NAME;
         String pass = PASSWORD;
-        static final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
-        static final String USER = "newuser"; // username created in mySQL query
-        static final String PASS = "password"; // password created in mySQL query
-      //  String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Mutan#5226.jpg";
-       // String[] to = { RECIPIENT }; // list of recipient email addresses
         String subject = "Hello"; 
-        String body = "Welcome to The Jungle!";
+        String body = "What Up";
+        final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
+        //  final String USER = "newuser"; // username created in mySQL query
+        //  final String PASS = "password"; // password created in mySQL query
+
+         
+        String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Pixel.html";
         ArrayList<String> Emails = new ArrayList<String>();
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				Statement stmt = conn.createStatement();) {
+       Emails.add("pirateshockey17@gmail.com");
+        for (String i : Emails) {
+                    String[] to = { i };
+                    sendFromGMail(from, pass, to, subject,body,"fileoname",1);
+                    System.out.println("Message Sent");
+                }
+
+    }
+       // String[] to = { RECIPIENT }; // list of recipient email addresses
+    //     String subject = "Hello"; 
+    //     String body = "Welcome to The Jungle!";
+    //     ArrayList<String> Emails = new ArrayList<String>();
+    //     try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	// 			Statement stmt = conn.createStatement();) {
 			
-			DatabaseMetaData dbm = (DatabaseMetaData) conn.getMetaData();
-			//TODO: get company name, change from hard coded
-			//String tblname = company_name + "_employees";
-			String tblname =  "_employees";
-			String query = " SELECT email FROM " + tblname;
-			ResultSet rs = stmt.executeQuery(query);
-			while(rs.next()) {
-				String email = rs.getString("email");
-				System.out.println(email);
-				Emails.add(email);
-			}
-        }	
+	// 		DatabaseMetaData dbm = (DatabaseMetaData) conn.getMetaData();
+	// 		//TODO: get company name, change from hard coded
+	// 		//String tblname = company_name + "_employees";
+	// 		String tblname =  "_employees";
+	// 		String query = " SELECT email FROM " + tblname;
+	// 		ResultSet rs = stmt.executeQuery(query);
+	// 		while(rs.next()) {
+	// 			String email = rs.getString("email");
+	// 			System.out.println(email);
+	// 			Emails.add(email);
+	// 		}
+    //     }	
 
         
-        for (String i : Emails) {
-            String[] to = { i };
-            sendFromGMail(from, pass, to, subject, body,"pass");
-            System.out.println("Message Sent");
-        }
-    }
-
-    private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,String filename) {
+    //     for (String i : Emails) {
+    //         String[] to = { i };
+    //         sendFromGMail(from, pass, to, subject, body,"pass");
+    //         System.out.println("Message Sent");
+    //     }
+    // }
+    private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,String filename,int employeeNumber) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -89,14 +103,61 @@ public class SendEmail {
             }
 
             message.setSubject(subject);
-            File file = new File(filename);
-            if (file.exists()){
-            DataSource source = new FileDataSource(filename);
-            message.setDataHandler(new DataHandler(source)); 
-            message.setFileName(filename);
+        //     File file = new File(filename);
+        // //     if (file.exists()){
+        // //     DataSource source = new FileDataSource(filename);
+        // //     message.setDataHandler(new DataHandler(source)); 
+        // //     message.setFileName(filename);
             
-        }
-            message.setText(body);
+        // // }   
+            //message.setFrom(new InternetAddress("frank@dgmachine.com"));
+    
+            //Text
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(body, "text/html");
+    
+            // //Example
+            // MimeBodyPart mimeBodyPartWithStyledText = new MimeBodyPart();
+            // mimeBodyPartWithStyledText.setContent("<img src=\"https://pastepixel.com/image/wkRkY2fRRUaezXyTphUc.png\" alt=\"\"/>","text/html");
+            // multipart.addBodyPart(mimeBodyPart);
+
+
+            Multipart multipart = new MimeMultipart();
+            
+            multipart.addBodyPart(mimeBodyPart);
+            int bEmployeeNumber =Integer.parseInt(Integer.toBinaryString(employeeNumber));
+
+            if (bEmployeeNumber%10==1){
+                MimeBodyPart email1 = new MimeBodyPart();
+                email1.setContent("<img src=\"https://pastepixel.com/image/wkRkY2fRRUaezXyTphUc.png\" alt=\"\"/>","text/html");
+                multipart.addBodyPart(email1);
+            }
+            bEmployeeNumber=bEmployeeNumber/10;
+
+            if (bEmployeeNumber%10==1){
+            //  MimeBodyPart email2 = new MimeBodyPart();
+            // email2.setContent(body, "text/html");
+            // multipart.addBodyPart(email2);
+            }
+            bEmployeeNumber=bEmployeeNumber/10;
+            if (bEmployeeNumber%10==1){
+                // MimeBodyPart email3 = new MimeBodyPart();
+                //email3.setContent("");
+               // multipart.addBodyPart(email3);
+            }
+            bEmployeeNumber=bEmployeeNumber/10;
+            if (bEmployeeNumber%10==1){
+               // MimeBodyPart email4 = new MimeBodyPart();
+                //email4.setContent("");
+               // multipart.addBodyPart(email4);
+            }
+            bEmployeeNumber=bEmployeeNumber/10;
+            if (bEmployeeNumber%10==1){
+              // MimeBodyPart email4 = new MimeBodyPart();
+                //email4.setContent("");
+               // multipart.addBodyPart(email4);
+            }
+            message.setContent(multipart);
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());

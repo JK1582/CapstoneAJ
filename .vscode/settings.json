@@ -8,6 +8,9 @@
         "/Users/joekelley/Documents/Jars/javax.mail.jar",
         "/Users/autumnklein/Desktop/activation.jar",
         "/Users/autumnklein/Desktop/mail.jar",
-        "/Users/autumnklein/Desktop/mysql-connector-java.jar"
+        "/Users/autumnklein/Desktop/mysql-connector-java.jar",
+        "/Users/joekelley/Desktop/Jars-main/activation.jar",
+        "/Users/joekelley/Desktop/Jars-main/mail.jar",
+        "/Users/joekelley/Desktop/Jars-main/mysql-connector-java.jar"
     ]
 }
