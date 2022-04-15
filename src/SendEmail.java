@@ -113,8 +113,13 @@ public class SendEmail {
             //message.setFrom(new InternetAddress("frank@dgmachine.com"));
     
             //Text
+
+            //so we gotta just get the company name
+            String link = "https://sites.google.com/view/capstonejkak/home?utm_source=" + employeeNumber + "&utm_medium=email&utm_campaign=";  //get company name;
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(body, "text/html");
+            MimeBodyPart websiteclick = new MimeBodyPart();
+            websiteclick.setContent(link, "text/html");
     
             // //Example
             // MimeBodyPart mimeBodyPartWithStyledText = new MimeBodyPart();
@@ -125,6 +130,7 @@ public class SendEmail {
             Multipart multipart = new MimeMultipart();
             
             multipart.addBodyPart(mimeBodyPart);
+            multipart.addBodyPart(websiteclick);
             int bEmployeeNumber =Integer.parseInt(Integer.toBinaryString(employeeNumber));
 
             if (bEmployeeNumber%10==1){
