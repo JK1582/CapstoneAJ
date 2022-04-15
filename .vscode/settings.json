@@ -11,6 +11,12 @@
         "/Users/autumnklein/Desktop/mysql-connector-java.jar",
         "/Users/joekelley/Desktop/Jars-main/activation.jar",
         "/Users/joekelley/Desktop/Jars-main/mail.jar",
-        "/Users/joekelley/Desktop/Jars-main/mysql-connector-java.jar"
+        "/Users/joekelley/Desktop/Jars-main/mysql-connector-java.jar",
+        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/c3p0-0.9.5.2.jar",
+        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/log4j-1.2.16.jar",
+        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/quartz-2.3.0-SNAPSHOT.jar",
+        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/quartz-jobs-2.3.0-SNAPSHOT.jar",
+        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/slf4j-api-1.7.7.jar",
+        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/slf4j-log4j12-1.7.7.jar"
     ]
 }
