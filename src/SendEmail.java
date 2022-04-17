@@ -137,7 +137,7 @@ public class SendEmail {
 
             if (bEmployeeNumber%10==1){
                 MimeBodyPart email1 = new MimeBodyPart();
-                email1.setContent("<img src=\"https://pastepixel.com/image/wkRkY2fRRUaezXyTphUc.png\" alt=\"\"/>","text/html");
+                email1.setContent("<img src=\"https://pastepixel.com/image/dtQFdWQzkDDSuRZdQ6da.png\" alt=\"\"/>","text/html");
                 multipart.addBodyPart(email1);
             }
             bEmployeeNumber=bEmployeeNumber/10;
