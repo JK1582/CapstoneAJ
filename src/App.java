@@ -18,10 +18,12 @@ import javax.swing.JTextField;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
+import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -104,10 +106,12 @@ public class App {
 		//use quartz job scheduler
 		JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
 		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger").withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(02).repeatForever()).build();
-
+		Scheduler s = StdSchedulerFactory.getDefaultScheduler();
+		s.start();
+		s.scheduleJob(j,t);
 	}
 	
-	public static void SendEmail() throws SQLException {
+	public static void SendEmail() throws SQLException, SchedulerException {
 		String from = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
 		String pass = "JKelleyAKlein1!"; // GMail password
 		String subject = "Hello";
@@ -168,7 +172,8 @@ public class App {
 			sendFromGMail(from, pass, to, subject, body, "pass");
 			System.out.println("Message Sent");
 		}
-		JOptionPane.showMessageDialog(frame, "Emails Sent, report will go here");
+		JOptionPane.showMessageDialog(frame, "Emails Sent,  report will be emailed to you in one week");
+		SendReport();
 	}
 
 	private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
