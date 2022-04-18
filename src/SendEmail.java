@@ -143,9 +143,9 @@ public class SendEmail {
             bEmployeeNumber=bEmployeeNumber/10;
 
             if (bEmployeeNumber%10==1){
-            //  MimeBodyPart email2 = new MimeBodyPart();
-            // email2.setContent(body, "text/html");
-            // multipart.addBodyPart(email2);
+             MimeBodyPart email2 = new MimeBodyPart();
+            // email2.setContent("<img src=\"https://pastepixel.com/image/U7HkVsae7MCUtdgTPFg4.png\" alt=\"\"/>", "text/html");
+            multipart.addBodyPart(email2);
             }
             bEmployeeNumber=bEmployeeNumber/10;
             if (bEmployeeNumber%10==1){
