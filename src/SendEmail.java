@@ -137,33 +137,38 @@ public class SendEmail {
 
             if (bEmployeeNumber%10==1){
                 MimeBodyPart email1 = new MimeBodyPart();
-                email1.setContent("<img src=\"https://pastepixel.com/image/dtQFdWQzkDDSuRZdQ6da.png\" alt=\"\"/>","text/html");
+                email1.setContent("1", "text/html");
+                //email1.setContent("<img src=\"https://pastepixel.com/image/dtQFdWQzkDDSuRZdQ6da.png\" alt=\"\"/>","text/html");
                 multipart.addBodyPart(email1);
             }
             bEmployeeNumber=bEmployeeNumber/10;
 
             if (bEmployeeNumber%10==1){
              MimeBodyPart email2 = new MimeBodyPart();
+             email2.setContent("2", "text/html");
             // email2.setContent("<img src=\"https://pastepixel.com/image/U7HkVsae7MCUtdgTPFg4.png\" alt=\"\"/>", "text/html");
             multipart.addBodyPart(email2);
             }
             bEmployeeNumber=bEmployeeNumber/10;
             if (bEmployeeNumber%10==1){
-                // MimeBodyPart email3 = new MimeBodyPart();
+                 MimeBodyPart email3 = new MimeBodyPart();
+                 email3.setContent("3", "text/html");
                 //email3.setContent("");
-               // multipart.addBodyPart(email3);
+               multipart.addBodyPart(email3);
             }
             bEmployeeNumber=bEmployeeNumber/10;
             if (bEmployeeNumber%10==1){
-               // MimeBodyPart email4 = new MimeBodyPart();
-                //email4.setContent("");
-               // multipart.addBodyPart(email4);
+                MimeBodyPart email4 = new MimeBodyPart();
+               //email4.setContent("");
+               email4.setContent("4", "text/html");
+               multipart.addBodyPart(email4);
             }
             bEmployeeNumber=bEmployeeNumber/10;
             if (bEmployeeNumber%10==1){
-              // MimeBodyPart email4 = new MimeBodyPart();
-                //email4.setContent("");
-               // multipart.addBodyPart(email4);
+              MimeBodyPart email5 = new MimeBodyPart();
+                //email5.setContent("");
+                email5.setContent("5", "text/html");
+               multipart.addBodyPart(email5);
             }
             message.setContent(multipart);
             Transport transport = session.getTransport("smtp");
