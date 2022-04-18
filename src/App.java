@@ -48,7 +48,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 public class App {
 	static final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
 	static final String USER = "root"; // username created in mySQL query
@@ -100,13 +99,14 @@ public class App {
 		height = h;
 	}
 
-	public static void SendReport() throws SchedulerException{
-		//use quartz job scheduler
+	public static void SendReport() throws SchedulerException {
+		// use quartz job scheduler
 		JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
-		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger").withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(02).repeatForever()).build();
+		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger")
+				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(02).repeatForever()).build();
 
 	}
-	
+
 	public static void SendEmail() throws SQLException {
 		String from = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
 		String pass = "JKelleyAKlein1!"; // GMail password
@@ -120,22 +120,28 @@ public class App {
 		String pixel5 = "";
 		String pixel6 = "";
 		String body = "";
-		String bodyOpt1 = "<p> Hi, <br> A vulnerability has been identified in the Outlook applications that allow an attacker to access confidential emails and files from your account without your knowledge." + 
-		"<br> We would like all of our employees to verify if any of their data has been compromised. </p> <br> <h4> To perform this verification, please use the following link: {{insert tracking link here}}</h4>" + 
-		" <br> <p>Thank you, <br> Human Resources </p>" ;
-		String bodyOpt2 = "<p> Hello, <br> Due to recent activity on your account, we have placed a temporary suspension until you verify your account. Please review your information with us before close of business today. <br>" + 
-		" To verify your information, please click the following link: {{insert tracking link here}} <br> "+
-		"For the sake of our company's security, we advise you to avoid sharing your password with anybody. If you have any issues verifying your account, "+
-		" please contact technical support. <br> Thank you, <br> IT team </p>";
-		String bodyOpt3 = "<h1> Password successfully changed </h1> <br> "+
-		"<p>Your password for your Microsoft account was successfully changed. <br> If this was you, then you can safely ignore this email. <br>"+
-		"If this wasn't you, your account has been compromised. Please click the following link to secure your account: {{insert link here}} <br>" + 
-		"Thank you, <br> The Microsoft account team </p>"; 
+		String bodyOpt1 = "<p> Hi, <br> A vulnerability has been identified in the Outlook applications that allow an attacker to access confidential emails and files from your account without your knowledge."
+				+
+				"<br> We would like all of our employees to verify if any of their data has been compromised. </p> <br> <h4> To perform this verification, please use the following link: {{insert tracking link here}}</h4>"
+				+
+				" <br> <p>Thank you, <br> Human Resources </p>";
+		String bodyOpt2 = "<p> Hello, <br> Due to recent activity on your account, we have placed a temporary suspension until you verify your account. Please review your information with us before close of business today. <br>"
+				+
+				" To verify your information, please click the following link: {{insert tracking link here}} <br> " +
+				"For the sake of our company's security, we advise you to avoid sharing your password with anybody. If you have any issues verifying your account, "
+				+
+				" please contact technical support. <br> Thank you, <br> IT team </p>";
+		String bodyOpt3 = "<h1> Password successfully changed </h1> <br> " +
+				"<p>Your password for your Microsoft account was successfully changed. <br> If this was you, then you can safely ignore this email. <br>"
+				+
+				"If this wasn't you, your account has been compromised. Please click the following link to secure your account: {{insert link here}} <br>"
+				+
+				"Thank you, <br> The Microsoft account team </p>";
 		ArrayList<String> Bodies = new ArrayList<String>();
 		Bodies.add(bodyOpt1);
 		Bodies.add(bodyOpt2);
 		Bodies.add(bodyOpt3);
-		int index = (int)(Math.random() * Bodies.size());
+		int index = (int) (Math.random() * Bodies.size());
 		body = Bodies.get(index);
 		ArrayList<String> Emails = new ArrayList<String>();
 		ArrayList<String> Ids = new ArrayList<String>();

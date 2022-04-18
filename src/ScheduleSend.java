@@ -10,8 +10,7 @@ public class ScheduleSend implements Job {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.out.println("Scheduler running");
 		System.out.println("The time is " + new Date());
-		
+
 	}
 
 }
-
