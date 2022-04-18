@@ -18,7 +18,7 @@ public class PlayGround {
     public static void main(String[] args) {
         String from = USER_NAME;
         String pass = PASSWORD;
-        String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Mutan#5226.jpg";
+        //String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Mutan#5226.jpg";
        // String[] to = { RECIPIENT }; // list of recipient email addresses
         String subject = "Java send mail example";
         String body = "Welcome to The Jungle!";
