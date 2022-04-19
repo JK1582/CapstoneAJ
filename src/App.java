@@ -145,7 +145,8 @@ public class App {
 		// int index = (int) (Math.random() * Bodies.size());
 		// //body = Bodies.get(index);
 		ArrayList<String> Emails = new ArrayList<String>();
-		//ArrayList<String> Ids = new ArrayList<String>();
+		ArrayList<String> Ids = new ArrayList<String>();
+		HashMap<String, String> emId = new HashMap<>();
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement();) {
 
@@ -154,7 +155,7 @@ public class App {
 			String tblname = company_name + "_employees";
 
 			//body = "<h1>This is actual message embedded in HTML tags</h1>";
-			String query = " SELECT email FROM " + tblname;
+			String query = " SELECT email, id FROM " + tblname;
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String email = rs.getString("email");
@@ -162,15 +163,15 @@ public class App {
 				System.out.println(email);
 				System.out.println(id);
 				Emails.add(email);
-				//Ids.add(Integer.toBinaryString(id));
-				// HashMap<String, String> a = new HashMap<>();
-				// for (int i = 0; i < Ids.size(); i++) {
-				// 	a.put(Ids.get(i), Emails.get(i));
-				// }
+				Ids.add(Integer.toBinaryString(id));
+				
+				 for (int i = 0; i < Ids.size(); i++) {
+				 	emId.put(Ids.get(i), Emails.get(i));
+				}
 			}
 
 		}
-		sd.SendEmail(Emails);
+		sd.SendEmail(emId);
 		JOptionPane.showMessageDialog(frame, "Emails Sent, report will go here");
 	}
 

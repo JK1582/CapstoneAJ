@@ -25,7 +25,7 @@ public class SendEmail {
     // override -> copy & paste that & below it remove the params string, filename &
     // remove the if statement where
     // it says if file exists
-    public static void SendEmail(ArrayList<String> Emails) {
+    public static void SendEmail(HashMap<String, String> EmId) {
         String from = USER_NAME;
         String pass = PASSWORD;
         String subject = "Hello";
@@ -53,18 +53,36 @@ public class SendEmail {
         Bodies.add(bodyOpt3);
         int index = (int) (Math.random() * Bodies.size());
         body = Bodies.get(index);
-        //final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
-        // final String USER = "newuser"; // username created in mySQL query
-        // final String PASS = "password"; // password created in mySQL query
+        
+        //TODO: loop through hashmap, add emails to the String[] "to"
+        //pass sendFromGmail with correct employee Ids
+        Iterator hmIterator = EmId.entrySet().iterator();
+        String[] to;
+        ArrayList<String> toList = new ArrayList<String>();
+        ArrayList<String> ids = new ArrayList<String>();
+       // int i = 0; 
+        while(hmIterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry)hmIterator.next();
+            String email = ((String)mapElement.getValue());
+            toList.add(email);
+            // for(int i=0; i < EmId.size(); i++) {
 
-        // String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Pixel.html";
-        // ArrayList<String> Emails = new ArrayList<String>();
-        // Emails.add("pirateshockey17@gmail.com");
-        for (String i : Emails) {
-            String[] to = { i };
-            sendFromGMail(from, pass, to, subject, body, "fileoname", 1);
-            System.out.println("Message Sent");
+            // }
+            //to[i]=email;
+            String id = ((String)mapElement.getKey()); 
+            ids.add(id);
+           // i++;
         }
+        to = toList.toArray(new String[0]);
+
+         sendFromGMail(from, pass, to, subject, body, ids);
+
+
+        // for (String i : Emails) {
+        //     String[] to = { i };
+        //     sendFromGMail(from, pass, to, subject, body, 1);
+        //     System.out.println("Message Sent");
+        // }
 
     }
     // String[] to = { RECIPIENT }; // list of recipient email addresses
@@ -94,7 +112,7 @@ public class SendEmail {
     // }
     // }
     private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
-            String filename, int employeeNumber) {
+            ArrayList<String> employeeNumber) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -155,8 +173,8 @@ public class SendEmail {
 
             multipart.addBodyPart(mimeBodyPart);
             multipart.addBodyPart(websiteclick);
-            int bEmployeeNumber = Integer.parseInt(Integer.toBinaryString(employeeNumber));
-
+            //int bEmployeeNumber = Integer.parseInt(Integer.toBinaryString(employeeNumber));
+            int bEmployeeNumber = 1; //placeholder
             if (bEmployeeNumber % 10 == 1) {
                 MimeBodyPart email1 = new MimeBodyPart();
                 email1.setContent("1", "text/html");
