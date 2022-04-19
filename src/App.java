@@ -72,6 +72,7 @@ public class App {
 	static String company_name;
 	private int width;
 	private int height;
+	static SendEmail sd = new SendEmail();
 
 	public App(int w, int h) {
 		frame = new JFrame();
@@ -111,15 +112,15 @@ public class App {
 		String from = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
 		String pass = "JKelleyAKlein1!"; // GMail password
 		String subject = "Hello";
-		String pixel1 = "<!DOCTYPE html>\n"
-				+ "<img src=\"https://script.google.com/macros/s/AKfycbwwV7PU_8KgjKyVYxpqpdy2LjX6iYi_sxo9OVMmd5gCZzEvwus/exec\"\n"
-				+ "width =\"1\" height =\"1\">";
-		String pixel2 = "";
-		String pixel3 = "";
-		String pixel4 = "";
-		String pixel5 = "";
-		String pixel6 = "";
-		String body = "";
+		// String pixel1 = "<!DOCTYPE html>\n"
+		// 		+ "<img src=\"https://script.google.com/macros/s/AKfycbwwV7PU_8KgjKyVYxpqpdy2LjX6iYi_sxo9OVMmd5gCZzEvwus/exec\"\n"
+		// 		+ "width =\"1\" height =\"1\">";
+		// String pixel2 = "";
+		// String pixel3 = "";
+		// String pixel4 = "";
+		// String pixel5 = "";
+		// String pixel6 = "";
+		// String body = "";
 		String bodyOpt1 = "<p> Hi, <br> A vulnerability has been identified in the Outlook applications that allow an attacker to access confidential emails and files from your account without your knowledge."
 				+
 				"<br> We would like all of our employees to verify if any of their data has been compromised. </p> <br> <h4> To perform this verification, please use the following link: {{insert tracking link here}}</h4>"
@@ -142,9 +143,9 @@ public class App {
 		Bodies.add(bodyOpt2);
 		Bodies.add(bodyOpt3);
 		int index = (int) (Math.random() * Bodies.size());
-		body = Bodies.get(index);
+		//body = Bodies.get(index);
 		ArrayList<String> Emails = new ArrayList<String>();
-		ArrayList<String> Ids = new ArrayList<String>();
+		//ArrayList<String> Ids = new ArrayList<String>();
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement();) {
 
@@ -152,7 +153,7 @@ public class App {
 
 			String tblname = company_name + "_employees";
 
-			body = "<h1>This is actual message embedded in HTML tags</h1>";
+			//body = "<h1>This is actual message embedded in HTML tags</h1>";
 			String query = " SELECT email FROM " + tblname;
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -161,72 +162,68 @@ public class App {
 				System.out.println(email);
 				System.out.println(id);
 				Emails.add(email);
-				Ids.add(Integer.toBinaryString(id));
-				HashMap<String, String> a = new HashMap<>();
-				for (int i = 0; i < Ids.size(); i++) {
-					a.put(Ids.get(i), Emails.get(i));
-				}
+				//Ids.add(Integer.toBinaryString(id));
+				// HashMap<String, String> a = new HashMap<>();
+				// for (int i = 0; i < Ids.size(); i++) {
+				// 	a.put(Ids.get(i), Emails.get(i));
+				// }
 			}
 
 		}
-		for (String i : Emails) {
-			String[] to = { i };
-			sendFromGMail(from, pass, to, subject, body, "pass");
-			System.out.println("Message Sent");
-		}
+		sd.SendEmail(Emails);
 		JOptionPane.showMessageDialog(frame, "Emails Sent, report will go here");
 	}
 
-	private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
-			String filename) {
-		Properties props = System.getProperties();
-		String host = "smtp.gmail.com";
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	// private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
+	// 		String filename) {
+	// 	Properties props = System.getProperties();
+	// 	String host = "smtp.gmail.com";
+	// 	props.put("mail.smtp.starttls.enable", "true");
+	// 	props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.user", from);
-		props.put("mail.smtp.password", pass);
+	// 	props.put("mail.smtp.host", host);
+	// 	props.put("mail.smtp.user", from);
+	// 	props.put("mail.smtp.password", pass);
 
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.auth", "true");
-		props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+	// 	props.put("mail.smtp.port", "587");
+	// 	props.put("mail.smtp.auth", "true");
+	// 	props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
 
-		javax.mail.Session session = Session.getDefaultInstance(props);
-		MimeMessage message = new MimeMessage(session);
+	// 	javax.mail.Session session = Session.getDefaultInstance(props);
+	// 	MimeMessage message = new MimeMessage(session);
 
-		try {
-			message.setFrom(new InternetAddress(from));
-			InternetAddress[] toAddress = new InternetAddress[to.length];
+	// 	try {
+	// 		message.setFrom(new InternetAddress(from));
+	// 		InternetAddress[] toAddress = new InternetAddress[to.length];
 
-			// To get the array of addresses
-			for (int i = 0; i < to.length; i++) {
-				toAddress[i] = new InternetAddress(to[i]);
-			}
+	// 		// To get the array of addresses
+	// 		for (int i = 0; i < to.length; i++) {
+	// 			toAddress[i] = new InternetAddress(to[i]);
+	// 		}
 
-			for (int i = 0; i < toAddress.length; i++) {
-				message.addRecipient(Message.RecipientType.TO, toAddress[i]);
-			}
+	// 		for (int i = 0; i < toAddress.length; i++) {
+	// 			message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+	// 		}
 
-			message.setSubject(subject);
-			File file = new File(filename);
-			if (file.exists()) {
-				DataSource source = new FileDataSource(filename);
-				message.setDataHandler(new DataHandler(source));
-				message.setFileName(filename);
+	// 		message.setSubject(subject);
+	// 		File file = new File(filename);
+	// 		if (file.exists()) {
+	// 			DataSource source = new FileDataSource(filename);
+	// 			message.setDataHandler(new DataHandler(source));
+	// 			message.setFileName(filename);
 
-			}
-			message.setContent(body, "text/html");
-			Transport transport = session.getTransport("smtp");
-			transport.connect(host, from, pass);
-			transport.sendMessage(message, message.getAllRecipients());
-			transport.close();
-		} catch (AddressException ae) {
-			ae.printStackTrace();
-		} catch (MessagingException me) {
-			me.printStackTrace();
-		}
-	}
+	// 		}
+	// 		message.setContent(body, "text/html");
+	// 		Transport transport = session.getTransport("smtp");
+	// 		transport.connect(host, from, pass);
+	// 		transport.sendMessage(message, message.getAllRecipients());
+	// 		transport.close();
+	// 	} catch (AddressException ae) {
+	// 		ae.printStackTrace();
+	// 	} catch (MessagingException me) {
+	// 		me.printStackTrace();
+	// 	}
+	// }
 
 	public static void DeleteEmployee() throws SQLException {
 		addEmployees.setVisible(false);

@@ -25,18 +25,18 @@ public class SendEmail {
     // override -> copy & paste that & below it remove the params string, filename &
     // remove the if statement where
     // it says if file exists
-    public static void main(String[] args) throws SQLException {
+    public static void SendEmail(ArrayList<String> Emails) {
         String from = USER_NAME;
         String pass = PASSWORD;
         String subject = "Hello";
         String body = "What Up";
-        final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
+        //final String DB_URL = "jdbc:mysql://localhost:3306/capstone";
         // final String USER = "newuser"; // username created in mySQL query
         // final String PASS = "password"; // password created in mySQL query
 
-        String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Pixel.html";
-        ArrayList<String> Emails = new ArrayList<String>();
-        Emails.add("pirateshockey17@gmail.com");
+        // String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Pixel.html";
+        // ArrayList<String> Emails = new ArrayList<String>();
+        // Emails.add("pirateshockey17@gmail.com");
         for (String i : Emails) {
             String[] to = { i };
             sendFromGMail(from, pass, to, subject, body, "fileoname", 1);
