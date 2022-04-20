@@ -230,6 +230,8 @@ public class App {
 		addEmployees.setVisible(false);
 		viewEmployees.setVisible(false);
 		deleteEmployees.setVisible(false);
+		generateReport.setVisible(false);
+
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement();) {
 			DatabaseMetaData dbm = conn.getMetaData();
@@ -291,6 +293,8 @@ public class App {
 		addEmployees.setVisible(false);
 		viewEmployees.setVisible(false);
 		deleteEmployees.setVisible(false);
+		generateReport.setVisible(false);
+
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement();) {
 
@@ -365,6 +369,8 @@ public class App {
 		addEmployees.setVisible(false);
 		viewEmployees.setVisible(false);
 		deleteEmployees.setVisible(false);
+		generateReport.setVisible(false);
+
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement();) {
 
