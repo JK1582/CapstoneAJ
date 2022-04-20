@@ -225,4 +225,43 @@ public class SendEmail {
             me.printStackTrace();
         }
     }
+    public static void sendFromGMail(String from, String pass, String to, String subject, String body) {
+        Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pass);
+
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+        try {
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, to);
+
+
+            message.setSubject(subject);
+            //TODO: add report
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(body, "text/html");
+            MimeBodyPart websiteclick = new MimeBodyPart();
+            
+
+            
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        } catch (AddressException ae) {
+            ae.printStackTrace();
+        } catch (MessagingException me) {
+            me.printStackTrace();
+        }
+    }
 }

@@ -72,8 +72,12 @@ public class App {
 	static String company_name;
 	private int width;
 	private int height;
+	static String ceoEmail;
 	static SendEmail sd = new SendEmail();
 
+	public App() {
+
+	}
 	public App(int w, int h) {
 		frame = new JFrame();
 		label = new JLabel("<html>Welcome! Please enter your company name to login.</html>");
@@ -112,6 +116,8 @@ public class App {
 		String from = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
 		String pass = "JKelleyAKlein1!"; // GMail password
 		String subject = "Hello";
+		ceoEmail = JOptionPane.showInputDialog("Enter email to send report to: ");
+		System.out.println(ceoEmail);
 		// String pixel1 = "<!DOCTYPE html>\n"
 		// 		+ "<img src=\"https://script.google.com/macros/s/AKfycbwwV7PU_8KgjKyVYxpqpdy2LjX6iYi_sxo9OVMmd5gCZzEvwus/exec\"\n"
 		// 		+ "width =\"1\" height =\"1\">";
@@ -172,6 +178,7 @@ public class App {
 
 		}
 		sd.SendEmail(emId);
+		SendReport();
 		JOptionPane.showMessageDialog(frame, "Emails Sent, report will go here");
 	}
 
