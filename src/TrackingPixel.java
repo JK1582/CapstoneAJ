@@ -27,10 +27,13 @@ public class TrackingPixel {
     public static void readFiles() throws FileNotFoundException, IOException {
         List<String> pixel1 = new ArrayList<>();
         List<String> pixel2 = new ArrayList<>();
+        
         pixel1 = readFile(1);
         pixel2 = readFile(2);
 
         HashMap<String, String> viewed = new HashMap<String, String>();
+        int pixNum=0;
+        String p = "pixel";
         for (int i = 0; i < pixel1.size(); i++) {
             String key = pixel1.get(i);
 

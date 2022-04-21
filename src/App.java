@@ -18,10 +18,12 @@ import javax.swing.JTextField;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
+import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -106,10 +108,12 @@ public class App {
 
 	public static void SendReport() throws SchedulerException {
 		// use quartz job scheduler
-		JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
-		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger")
-				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(02).repeatForever()).build();
-
+		
+JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
+		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger").withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(604800)).build();
+		Scheduler s = StdSchedulerFactory.getDefaultScheduler();
+		s.start();
+		s.scheduleJob(j,t);
 	}
 
 	public static void SendEmail() throws SQLException {
@@ -178,7 +182,12 @@ public class App {
 
 		}
 		sd.SendEmail(emId);
-		SendReport();
+		try {
+			SendReport();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JOptionPane.showMessageDialog(frame, "Emails Sent, report will go here");
 	}
 
