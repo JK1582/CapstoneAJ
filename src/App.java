@@ -188,7 +188,7 @@ JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(frame, "Emails Sent, report will go here");
+		JOptionPane.showMessageDialog(frame, "Expect a report emailed to you in one week.");
 	}
 
 	// private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
