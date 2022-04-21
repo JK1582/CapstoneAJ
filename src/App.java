@@ -1,7 +1,5 @@
 import javax.swing.JFrame;
 import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -172,16 +170,18 @@ JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
 				Integer id = rs.getInt("id");
 				System.out.println(email);
 				System.out.println(id);
-				Emails.add(email);
-				Ids.add(Integer.toBinaryString(id));
+				// Emails.add(email);
+				// Ids.add(Integer.toBinaryString(id));
 				
-				 for (int i = 0; i < Ids.size(); i++) {
-				 	emId.put(Ids.get(i), Emails.get(i));
-				}
+				//  for (int i = 0; i < Ids.size(); i++) {
+				//  	emId.put(Ids.get(i), Emails.get(i));
+				// }
+				//String to, int employeeNumber,String companyName
+					sd.SendEmail(email,id,company_name);
+				
 			}
 
 		}
-		sd.SendEmail(emId);
 		try {
 			SendReport();
 		} catch (SchedulerException e) {

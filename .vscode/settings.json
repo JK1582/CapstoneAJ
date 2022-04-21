@@ -19,6 +19,10 @@
         "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/quartz-2.3.0-SNAPSHOT.jar",
         "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/quartz-jobs-2.3.0-SNAPSHOT.jar",
         "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/slf4j-api-1.7.7.jar",
-        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/slf4j-log4j12-1.7.7.jar"
+        "/Users/autumnklein/Downloads/quartz-2.3.0-SNAPSHOT/lib/slf4j-log4j12-1.7.7.jar",
+        "/Users/joekelley/Downloads/Jars-main/activation.jar",
+        "/Users/joekelley/Downloads/Jars-main/lib/**/*.jar",
+        "/Users/joekelley/Downloads/Jars-main/mail.jar",
+        "/Users/joekelley/Downloads/Jars-main/mysql-connector-java.jar"
     ]
 }

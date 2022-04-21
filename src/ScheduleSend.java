@@ -17,7 +17,7 @@ public class ScheduleSend implements Job {
         String pass = PASSWORD;
         String subject = "Phishing Report";
         String body = ""; //insert report here ?
-		sd.sendFromGMail(from, pass, email, subject, body);
+		sd.sendFromGMail(email, subject, body);
 		System.out.println("Scheduler running");
 		System.out.println("The time is " + new Date());
 

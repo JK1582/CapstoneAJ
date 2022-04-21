@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SendEmail",
+            "request": "launch",
+            "mainClass": "SendEmail",
+            "projectName": "CapstoneAJ_5e254f4a"
+        },
+        {
+            "type": "java",
+            "name": "Launch PlayGround",
+            "request": "launch",
+            "mainClass": "PlayGround",
+            "projectName": "CapstoneAJ_5e254f4a"
+        },
+        {
+            "type": "java",
+            "name": "Launch AppDriver",
+            "request": "launch",
+            "mainClass": "AppDriver",
+            "projectName": "CapstoneAJ_5e254f4a"
+        },
+        {
+            "type": "java",
             "name": "Launch TrackingPixel",
             "request": "launch",
             "mainClass": "TrackingPixel",

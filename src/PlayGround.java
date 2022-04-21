@@ -1,39 +1,44 @@
 import java.util.*;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.swing.text.html.HTML;
+
+import com.mysql.cj.conf.IntegerPropertyDefinition;
+import com.mysql.cj.jdbc.DatabaseMetaData;
+
 import java.util.ArrayList;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class PlayGround {
+    public static void main(String[] args) {	
+    String USER_NAME = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
+    String PASSWORD = "JKelleyAKlein1!"; // GMail password
+    String from = USER_NAME;
+    String pass = PASSWORD;
+    // override -> copy & paste that & below it remove the params string, filename &
+    // remove the if statement where
+    // it says if file exists
+        //  sendFromGMail(from, pass, to, subject, body, ids);
 
-    private static String USER_NAME = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
-    private static String PASSWORD = "JKelleyAKlein1!"; // GMail password
-
-    public static void main(String[] args) {
-        String from = USER_NAME;
-        String pass = PASSWORD;
-        // String filename = "/Users/joekelley/Documents/CapstoneAJ/src/Mutan#5226.jpg";
-        // String[] to = { RECIPIENT }; // list of recipient email addresses
-        String subject = "Java send mail example";
-        String body = "Welcome to The Jungle!";
         ArrayList<String> Emails = new ArrayList<String>();
-        // Emails.add("pirateshockey17@gmai.com");
-        // Emails.add("JosephBoydKelley@gmai.com");
-        // Emails.add("Jk1582@mynsu.nova.edu");
-
+        Emails.add("pirateshockey@google.com");
+        Emails.add("josephboydkelley@google.com");
         for (String i : Emails) {
-            String[] to = { i };
-            sendFromGMail(from, pass, to, subject, body, "pass");
+            
+            sendFromGMail(from, pass, i, "d", "body");
             System.out.println("Message Sent");
+         }
         }
-    }
+    private static void sendFromGMail(String from, String pass, String to, String subject, String body) {
 
-    private static void sendFromGMail(String from, String pass, String[] to, String subject, String body,
-            String filename) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -52,26 +57,66 @@ public class PlayGround {
 
         try {
             message.setFrom(new InternetAddress(from));
-            InternetAddress[] toAddress = new InternetAddress[to.length];
-
-            // To get the array of addresses
-            for (int i = 0; i < to.length; i++) {
-                toAddress[i] = new InternetAddress(to[i]);
-            }
-
-            for (int i = 0; i < toAddress.length; i++) {
-                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
-            }
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+    
 
             message.setSubject(subject);
-            File file = new File(filename);
-            if (file.exists()) {
-                DataSource source = new FileDataSource(filename);
-                message.setDataHandler(new DataHandler(source));
-                message.setFileName(filename);
+            String link = "https://sites.google.com/view/capstonejkak/home?utm_source="// + employeeNumber
+                    + "&utm_medium=email&utm_campaign="; // get company name;
+                    //TODO: get company name;
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(body, "text/html");
+            MimeBodyPart websiteclick = new MimeBodyPart();
+            websiteclick.setContent(link, "text/html");
+            Multipart multipart = new MimeMultipart();
 
+            multipart.addBodyPart(mimeBodyPart);
+            multipart.addBodyPart(websiteclick);
+            int employeeNumber = 1;
+            int bEmployeeNumber = Integer.parseInt(Integer.toBinaryString(employeeNumber));
+            //int bEmployeeNumber = 1; //placeholder
+            if (bEmployeeNumber % 10 == 1) {
+                MimeBodyPart email1 = new MimeBodyPart();
+                email1.setContent("1", "text/html");
+                // email1.setContent("<img
+                // src https://pastepixel.com/image/dtQFdWQzkDDSuRZdQ6da.png\"
+                // alt=\"\"/>","text/html");
+                multipart.addBodyPart(email1);
             }
-            message.setText(body);
+            bEmployeeNumber = bEmployeeNumber / 10;
+
+            if (bEmployeeNumber % 10 == 1) {
+                MimeBodyPart email2 = new MimeBodyPart();
+                email2.setContent("2", "text/html");
+                // email2.setContent("<img
+                // src=\"https://pastepixel.com/image/U7HkVsae7MCUtdgTPFg4.png\" alt=\"\"/>",
+                // "text/html");
+                multipart.addBodyPart(email2);
+            }
+            bEmployeeNumber = bEmployeeNumber / 10;
+            if (bEmployeeNumber % 10 == 1) {
+                MimeBodyPart email3 = new MimeBodyPart();
+                email3.setContent("3", "text/html");
+                // email3.setContent("<img
+                // src=\"https://pastepixel.com/image/WNYrTHC57YqUMaTbHYSB.png\" alt=\"\"/>",
+                // "text/html");
+                multipart.addBodyPart(email3);
+            }
+            bEmployeeNumber = bEmployeeNumber / 10;
+            if (bEmployeeNumber % 10 == 1) {
+                MimeBodyPart email4 = new MimeBodyPart();
+                // email4.setContent("");
+                email4.setContent("4", "text/html");
+                multipart.addBodyPart(email4);
+            }
+            bEmployeeNumber = bEmployeeNumber / 10;
+            if (bEmployeeNumber % 10 == 1) {
+                MimeBodyPart email5 = new MimeBodyPart();
+                // email5.setContent("");
+                email5.setContent("5", "text/html");
+                multipart.addBodyPart(email5);
+            }
+            message.setContent(multipart);
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
@@ -82,4 +127,7 @@ public class PlayGround {
             me.printStackTrace();
         }
     }
+    
 }
+
+   
