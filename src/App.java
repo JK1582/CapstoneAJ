@@ -119,6 +119,9 @@ JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
 		String pass = "JKelleyAKlein1!"; // GMail password
 		String subject = "Hello";
 		ceoEmail = JOptionPane.showInputDialog("Enter email to send report to: ");
+		if(ceoEmail==null){
+			return;
+		}
 		System.out.println(ceoEmail);
 		// String pixel1 = "<!DOCTYPE html>\n"
 		// 		+ "<img src=\"https://script.google.com/macros/s/AKfycbwwV7PU_8KgjKyVYxpqpdy2LjX6iYi_sxo9OVMmd5gCZzEvwus/exec\"\n"
