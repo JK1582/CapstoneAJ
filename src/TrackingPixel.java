@@ -34,6 +34,7 @@ public class TrackingPixel {
         HashMap<String, String> viewed = new HashMap<String, String>();
         int pixNum=0;
         String p = "pixel";
+
         for (int i = 0; i < pixel1.size(); i++) {
             String key = pixel1.get(i);
 

@@ -197,7 +197,9 @@ public class SendEmail {
             if (bEmployeeNumber % 10 == 1) {
                 MimeBodyPart email3 = new MimeBodyPart();
                 email3.setContent("3", "text/html");
-                // email3.setContent("");
+                // email3.setContent("<img
+                // src=\"https://pastepixel.com/image/WNYrTHC57YqUMaTbHYSB.png\" alt=\"\"/>",
+                // "text/html");
                 multipart.addBodyPart(email3);
             }
             bEmployeeNumber = bEmployeeNumber / 10;
