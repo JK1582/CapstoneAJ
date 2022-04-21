@@ -31,6 +31,7 @@ public class TrackingPixel {
         pixel2 = readFile(2);
 
         HashMap<String, String> viewed = new HashMap<String, String>();
+
         for (int i = 0; i < pixel1.size(); i++) {
             String key = pixel1.get(i);
 
