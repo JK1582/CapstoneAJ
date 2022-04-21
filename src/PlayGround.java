@@ -1,21 +1,7 @@
 import java.util.*;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.swing.text.html.HTML;
-
-import com.mysql.cj.conf.IntegerPropertyDefinition;
-import com.mysql.cj.jdbc.DatabaseMetaData;
-
 import java.util.ArrayList;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class PlayGround {
     public static void main(String[] args) {	
