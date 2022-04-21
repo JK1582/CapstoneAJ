@@ -156,7 +156,7 @@ public class SendEmail {
 
             // so we gotta just get the company name
             String link = "https://sites.google.com/view/capstonejkak/home?utm_source=" + employeeNumber
-                    + "&utm_medium=email&utm_campaign="; // get company name;
+                    + "&utm_medium=email&utm_campaign="+ App.company_name; 
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(body, "text/html");
             MimeBodyPart websiteclick = new MimeBodyPart();
