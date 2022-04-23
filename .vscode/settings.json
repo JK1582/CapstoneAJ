@@ -23,6 +23,10 @@
         "/Users/joekelley/Downloads/Jars-main/activation.jar",
         "/Users/joekelley/Downloads/Jars-main/lib/**/*.jar",
         "/Users/joekelley/Downloads/Jars-main/mail.jar",
-        "/Users/joekelley/Downloads/Jars-main/mysql-connector-java.jar"
+        "/Users/joekelley/Downloads/Jars-main/mysql-connector-java.jar",
+        "/Users/joekelley/Documents/GitHub/Jars/activation.jar",
+        "/Users/joekelley/Documents/GitHub/Jars/mail.jar",
+        "/Users/joekelley/Documents/GitHub/Jars/mysql-connector-java.jar",
+        "/Users/joekelley/Documents/GitHub/Jars/quartz/**/*.jar"
     ]
 }

@@ -15,7 +15,7 @@ public class TrackingPixel {
 
     public static List<String> readFile(int number) throws FileNotFoundException, IOException {
         List<String> list = new ArrayList<>();
-        String TEXT_FILE = "/Users/joekelley/CapstoneAJ/src/Pixels/TrackingPixel" + number + ".txt";
+        String TEXT_FILE = "/Users/joekelley/Documents/GitHub/CapstoneAJ/src/Pixels/TrackingPixel" + number + ".txt";
 
         File textFile = new File(TEXT_FILE);
         try (BufferedReader br = new BufferedReader(new FileReader(textFile));) {
@@ -27,12 +27,12 @@ public class TrackingPixel {
     public static void readFiles() throws FileNotFoundException, IOException {
         List<String> pixel1 = new ArrayList<>();
         List<String> pixel2 = new ArrayList<>();
-        
+
         pixel1 = readFile(1);
         pixel2 = readFile(2);
 
         HashMap<String, String> viewed = new HashMap<String, String>();
-        int pixNum=0;
+        int pixNum = 0;
         String p = "pixel";
 
         for (int i = 0; i < pixel1.size(); i++) {

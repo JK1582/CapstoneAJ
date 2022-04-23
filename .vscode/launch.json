@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TrackingPixel",
+            "request": "launch",
+            "mainClass": "TrackingPixel",
+            "projectName": "CapstoneAJ_a3b9269a"
+        },
+        {
+            "type": "java",
+            "name": "Launch AppDriver",
+            "request": "launch",
+            "mainClass": "AppDriver",
+            "projectName": "CapstoneAJ_a3b9269a"
+        },
+        {
+            "type": "java",
             "name": "Launch SendEmail",
             "request": "launch",
             "mainClass": "SendEmail",

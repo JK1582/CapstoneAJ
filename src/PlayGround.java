@@ -4,25 +4,26 @@ import javax.mail.internet.*;
 import java.util.ArrayList;
 
 public class PlayGround {
-    public static void main(String[] args) {	
-    String USER_NAME = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
-    String PASSWORD = "JKelleyAKlein1!"; // GMail password
-    String from = USER_NAME;
-    String pass = PASSWORD;
-    // override -> copy & paste that & below it remove the params string, filename &
-    // remove the if statement where
-    // it says if file exists
-        //  sendFromGMail(from, pass, to, subject, body, ids);
+    public static void main(String[] args) {
+        String USER_NAME = "JkelleyAKlein"; // GMail user name (just the part before "@gmail.com")
+        String PASSWORD = "JKelleyAKlein1!"; // GMail password
+        String from = USER_NAME;
+        String pass = PASSWORD;
+        // override -> copy & paste that & below it remove the params string, filename &
+        // remove the if statement where
+        // it says if file exists
+        // sendFromGMail(from, pass, to, subject, body, ids);
 
         ArrayList<String> Emails = new ArrayList<String>();
         Emails.add("pirateshockey@google.com");
         Emails.add("josephboydkelley@google.com");
         for (String i : Emails) {
-            
+
             sendFromGMail(from, pass, i, "d", "body");
             System.out.println("Message Sent");
-         }
         }
+    }
+
     private static void sendFromGMail(String from, String pass, String to, String subject, String body) {
 
         Properties props = System.getProperties();
@@ -44,12 +45,11 @@ public class PlayGround {
         try {
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-    
 
             message.setSubject(subject);
             String link = "https://sites.google.com/view/capstonejkak/home?utm_source="// + employeeNumber
                     + "&utm_medium=email&utm_campaign="; // get company name;
-                    //TODO: get company name;
+            // TODO: get company name;
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(body, "text/html");
             MimeBodyPart websiteclick = new MimeBodyPart();
@@ -60,7 +60,7 @@ public class PlayGround {
             multipart.addBodyPart(websiteclick);
             int employeeNumber = 1;
             int bEmployeeNumber = Integer.parseInt(Integer.toBinaryString(employeeNumber));
-            //int bEmployeeNumber = 1; //placeholder
+            // int bEmployeeNumber = 1; //placeholder
             if (bEmployeeNumber % 10 == 1) {
                 MimeBodyPart email1 = new MimeBodyPart();
                 email1.setContent("1", "text/html");
@@ -113,7 +113,5 @@ public class PlayGround {
             me.printStackTrace();
         }
     }
-    
-}
 
-   
+}
