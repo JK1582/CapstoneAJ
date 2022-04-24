@@ -149,16 +149,29 @@ public class SendEmail {
             bEmployeeNumber = bEmployeeNumber / 10;
             if (bEmployeeNumber % 10 == 1) {
                 MimeBodyPart email4 = new MimeBodyPart();
-                // email4.setContent("");
+                 // email4.setContent("<img
+                // src=\"https://pastepixel.com/image/nRRrB5HuPwB2FKYg3ACu.png\" alt=\"\"/>",
+                // "text/html");
                 email4.setContent("4", "text/html");
                 multipart.addBodyPart(email4);
             }
             bEmployeeNumber = bEmployeeNumber / 10;
             if (bEmployeeNumber % 10 == 1) {
                 MimeBodyPart email5 = new MimeBodyPart();
-                // email5.setContent("");
+                 // email5.setContent("<img
+                // src=\"https://pastepixel.com/image/replace.png\" alt=\"\"/>",
+                // "text/html");
                 email5.setContent("5", "text/html");
                 multipart.addBodyPart(email5);
+            }
+            bEmployeeNumber = bEmployeeNumber / 10;
+            if (bEmployeeNumber % 10 == 1) {
+                MimeBodyPart email6 = new MimeBodyPart();
+                 // email6.setContent("<img
+                // src=\"https://pastepixel.com/image/replace.png\" alt=\"\"/>",
+                // "text/html");
+                email6.setContent("6", "text/html");
+                multipart.addBodyPart(email6);
             }
             message.setContent(multipart);
             Transport transport = session.getTransport("smtp");

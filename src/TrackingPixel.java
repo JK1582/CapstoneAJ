@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TrackingPixel {
+    static int numOfPixels = 6;
 
     public static List<String> readFile(int number) throws FileNotFoundException, IOException {
         List<String> list = new ArrayList<>();
@@ -25,34 +26,20 @@ public class TrackingPixel {
     }
 
     public static void readFiles() throws FileNotFoundException, IOException {
-        List<String> pixel1 = new ArrayList<>();
-        List<String> pixel2 = new ArrayList<>();
-
-        pixel1 = readFile(1);
-        pixel2 = readFile(2);
-
         HashMap<String, String> viewed = new HashMap<String, String>();
-        int pixNum = 0;
-        String p = "pixel";
-
-        for (int i = 0; i < pixel1.size(); i++) {
-            String key = pixel1.get(i);
-
-            if (viewed.containsKey(key)) {
-                viewed.put(key, viewed.get(key) + "1,");
-            } else
-                viewed.put(key, "1,");
-            i = i + 2;
-        }
-        for (int i = 0; i < pixel2.size(); i++) {
-            String key = pixel2.get(i);
+        for (int j=1;j<numOfPixels+1;j++){
+        List<String> pixel = new ArrayList<>();
+        pixel = readFile(j);
+        for (int i = 0; i < pixel.size(); i++) {
+            String key = pixel.get(i);
 
             if (viewed.containsKey(key)) {
-                viewed.put(key, viewed.get(key) + "2,");
+                viewed.put(key, viewed.get(key) + j+ ",");
             } else
-                viewed.put(key, "2,");
+                viewed.put(key, j+ ",");
             i = i + 2;
         }
+    }
         printMap(viewed);
     }
 
