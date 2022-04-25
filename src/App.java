@@ -345,6 +345,21 @@ public class App {
 						end = "no";
 						break outerloop;
 					}
+					String queryCheck = "SELECT id from " + company_name + "_employees";
+					PreparedStatement st = conn.prepareStatement(queryCheck);
+					ResultSet rs = st.executeQuery();
+					
+					ArrayList<String> ids = new ArrayList<String>();
+					while(rs.next()) {
+						System.out.println("lets add to arr list");
+						ids.add(rs.getString(1));
+						System.out.println(ids);
+					}
+//					
+					while(ids.contains(empId)) 	{
+						System.out.println("lets check if contains");
+						empId = JOptionPane.showInputDialog("Please enter valid ID. ID cannot already belong to employee.");
+					}
 					String firstName = JOptionPane.showInputDialog("Enter First Name");
 					if (firstName == null) {
 						System.out.println("entered1");
@@ -362,6 +377,9 @@ public class App {
 						System.out.println("entered1");
 						end = "no";
 						break outerloop;
+					}
+					while(!empEmail.contains("@")) {
+						empEmail = JOptionPane.showInputDialog("Enter valid email. Must contain an @."); 
 					}
 
 					// the mysql insert statement
