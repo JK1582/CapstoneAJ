@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 public class TrackingPixel {
     static int numOfPixels = 6;
     static String reportBody;
+    String openedCounter; 
+    String clickedCounter; 
+    
 
     public static List<String> readFile(int number) throws FileNotFoundException, IOException {
         List<String> list = new ArrayList<>();
