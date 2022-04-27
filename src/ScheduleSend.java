@@ -23,6 +23,8 @@ public class ScheduleSend implements Job {
 		String employeesWhoClicked ="";
 		try {
 			 employeesWhoViewed = TrackingPixel.readFiles();
+			 //add the company here
+			 employeesWhoClicked = TrackingLink.readFile("company");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
