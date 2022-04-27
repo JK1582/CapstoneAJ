@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.spi.RepositorySelector;
+
 public class TrackingPixel {
     static int numOfPixels = 6;
     static String reportBody;
@@ -20,7 +22,7 @@ public class TrackingPixel {
 
     public static List<String> readFile(int number) throws FileNotFoundException, IOException {
         List<String> list = new ArrayList<>();
-        String TEXT_FILE = "/Users/joekelley/Documents/GitHub/CapstoneAJ/src/Pixels/TrackingPixel" + number + ".txt";
+        String TEXT_FILE = "CapstoneAJ/Pixels/TrackingPixel" + number + ".txt";
 
         File textFile = new File(TEXT_FILE);
         try (BufferedReader br = new BufferedReader(new FileReader(textFile));) {
@@ -29,7 +31,7 @@ public class TrackingPixel {
         return list;
     }
 
-    public static void readFiles() throws FileNotFoundException, IOException {
+    public static void Init() throws FileNotFoundException, IOException {
         HashMap<String, String> viewed = new HashMap<String, String>();
         for (int j=1;j<numOfPixels+1;j++){
         List<String> pixel = new ArrayList<>();
@@ -56,6 +58,7 @@ public class TrackingPixel {
             returnEmployee(employee);
             it.remove(); // avoids a ConcurrentModificationException
         }
+        
     }
 
     public static void returnEmployee(String employee) {
@@ -64,7 +67,7 @@ public class TrackingPixel {
         numberslist = Arrays.asList(numbersarray);
         String binary = "";
 
-        for (int i = 3; i > 0; i--) {
+        for (int i = numOfPixels; i > 0; i--) {
             String ii = i + "";
             if (numberslist.contains(ii)) {
                 binary = binary + "1";
@@ -73,11 +76,12 @@ public class TrackingPixel {
         }
         int decimal = Integer.parseInt(binary, 2);
         reportBody += "Employee Number " + decimal + " has viewed the email. <br>"; 
-        System.out.println("Employee Number " + decimal + " has viewed the email.");
+        //System.out.println("Employee Number " + decimal + " has viewed the email.");
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        readFiles();
+    public static String readFiles() throws FileNotFoundException, IOException {
+        Init();
+        return reportBody;
 
     }
 }
