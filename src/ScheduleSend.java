@@ -1,4 +1,3 @@
-package gui;
 import java.util.Date;
 
 import org.quartz.Job;
