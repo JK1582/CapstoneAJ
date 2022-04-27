@@ -20,6 +20,7 @@ public class ScheduleSend implements Job {
         String pass = PASSWORD;
         String subject = "Phishing Report";
 		String employeesWhoViewed = "";
+		String employeesWhoClicked ="";
 		try {
 			 employeesWhoViewed = TrackingPixel.readFiles();
 		} catch (FileNotFoundException e) {
