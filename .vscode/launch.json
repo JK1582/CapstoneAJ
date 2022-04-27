@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TrackingLink",
+            "request": "launch",
+            "mainClass": "TrackingLink",
+            "projectName": "CapstoneAJ_831fdb3f"
+        },
+        {
+            "type": "java",
             "name": "Launch TrackingPixel",
             "request": "launch",
             "mainClass": "TrackingPixel",

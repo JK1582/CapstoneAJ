@@ -15,7 +15,7 @@ public class TrackingLink {
 
     public static List<String> readFile() throws FileNotFoundException, IOException {
         List<String> list = new ArrayList<>();
-        String TEXT_FILE = "CapstoneAJ/LinksClicked/links.txt";
+        String TEXT_FILE = "LinksClicked/links.txt";
 
         File textFile = new File(TEXT_FILE);
         try (BufferedReader br = new BufferedReader(new FileReader(textFile));) {
