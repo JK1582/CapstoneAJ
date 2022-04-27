@@ -16,6 +16,7 @@ import org.apache.log4j.spi.RepositorySelector;
 public class TrackingPixel {
     static int numOfPixels = 6;
     static String reportBody="";
+    
     String openedCounter; 
     String clickedCounter; 
     
