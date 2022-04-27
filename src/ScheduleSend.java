@@ -9,6 +9,7 @@ public class ScheduleSend implements Job {
 	private static String PASSWORD = "JKelleyAKlein1!"; // GMail password
 	App a = new App();
 	SendEmail sd = new SendEmail();
+	TrackingPixel = new TrackingPixel();
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
@@ -16,7 +17,11 @@ public class ScheduleSend implements Job {
 		String from = USER_NAME;
 		String pass = PASSWORD;
 		String subject = "Phishing Report";
-		String body = ""; // insert report here ?
+		String body = "<html> Hello, <br>"
+		+ "Here is your requested phishing report. <br> <br>"
+		+ TrackingPixel.reportBody 
+		+ " <br> We suggest forwarding <a href= 'youtube.com/watch?v=WNVTGTrWcvw'> this video </a> to the above employees to prevent them from falling for a legitimate phishing attack in the future. "
+		+ "<br> <br> Stay safe. Stay secure. </html>"; 
 		sd.sendFromGMail(email, subject, body);
 		System.out.println("Scheduler running");
 		System.out.println("The time is " + new Date());

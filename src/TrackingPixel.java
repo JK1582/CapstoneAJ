@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class TrackingPixel {
     static int numOfPixels = 6;
+    static String reportBody;
 
     public static List<String> readFile(int number) throws FileNotFoundException, IOException {
         List<String> list = new ArrayList<>();
@@ -68,6 +69,7 @@ public class TrackingPixel {
                 binary = binary + "0";
         }
         int decimal = Integer.parseInt(binary, 2);
+        reportBody += "Employee Number " + decimal + " has viewed the email. <br>"; 
         System.out.println("Employee Number " + decimal + " has viewed the email.");
     }
 
