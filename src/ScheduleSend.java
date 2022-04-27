@@ -34,7 +34,7 @@ public class ScheduleSend implements Job {
 		}
         String body = "<html> Hello, <br>"
         		+ "Here is your requested phishing report. <br> <br>"
-        		+ employeesWhoViewed 
+        		+ employeesWhoViewed + employeesWhoClicked
         		+ " <br> We suggest forwarding <a href= 'youtube.com/watch?v=WNVTGTrWcvw'> this video </a> to the above employees to prevent them from falling for a legitimate phishing attack in the future. "
         		+ "<br> <br> Stay safe. Stay secure. </html>";
         sd.sendFromGMail(email, subject, body);
