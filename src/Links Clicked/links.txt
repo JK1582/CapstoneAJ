@@ -6,9 +6,3 @@ Hannaford1
 (direct)
 4
 Pizza1
-5
-1
-6
-2
-7
-Pizza
