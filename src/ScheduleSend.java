@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 
 import org.quartz.Job;
@@ -17,9 +19,19 @@ public class ScheduleSend implements Job {
 		String from = USER_NAME;
         String pass = PASSWORD;
         String subject = "Phishing Report";
+		String employeesWhoViewed = "";
+		try {
+			 employeesWhoViewed = TrackingPixel.readFiles();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         String body = "<html> Hello, <br>"
         		+ "Here is your requested phishing report. <br> <br>"
-        		+ TrackingPixel.reportBody 
+        		+ employeesWhoViewed 
         		+ " <br> We suggest forwarding <a href= 'youtube.com/watch?v=WNVTGTrWcvw'> this video </a> to the above employees to prevent them from falling for a legitimate phishing attack in the future. "
         		+ "<br> <br> Stay safe. Stay secure. </html>";
         sd.sendFromGMail(email, subject, body);

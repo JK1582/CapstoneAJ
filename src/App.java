@@ -109,8 +109,9 @@ public class App {
 		// use quartz job scheduler
 
 		JobDetail j = JobBuilder.newJob(ScheduleSend.class).build();
-		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger")
-				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(604800)).build();
+		// Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger")
+		// 		.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(604800)).build();
+		Trigger t = TriggerBuilder.newTrigger().withIdentity("CroneTrigger").build();
 		Scheduler s = StdSchedulerFactory.getDefaultScheduler();
 		s.start();
 		s.scheduleJob(j, t);

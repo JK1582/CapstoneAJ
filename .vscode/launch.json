@@ -9,6 +9,20 @@
             "name": "Launch TrackingPixel",
             "request": "launch",
             "mainClass": "TrackingPixel",
+            "projectName": "CapstoneAJ_831fdb3f"
+        },
+        {
+            "type": "java",
+            "name": "Launch AppDriver",
+            "request": "launch",
+            "mainClass": "AppDriver",
+            "projectName": "CapstoneAJ_831fdb3f"
+        },
+        {
+            "type": "java",
+            "name": "Launch TrackingPixel",
+            "request": "launch",
+            "mainClass": "TrackingPixel",
             "projectName": "CapstoneAJ_a3b9269a"
         },
         {

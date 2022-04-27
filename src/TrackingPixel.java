@@ -15,14 +15,14 @@ import org.apache.log4j.spi.RepositorySelector;
 
 public class TrackingPixel {
     static int numOfPixels = 6;
-    static String reportBody;
+    static String reportBody="";
     String openedCounter; 
     String clickedCounter; 
     
 
     public static List<String> readFile(int number) throws FileNotFoundException, IOException {
         List<String> list = new ArrayList<>();
-        String TEXT_FILE = "CapstoneAJ/Pixels/TrackingPixel" + number + ".txt";
+        String TEXT_FILE = "Pixels/TrackingPixel" + number + ".txt";
 
         File textFile = new File(TEXT_FILE);
         try (BufferedReader br = new BufferedReader(new FileReader(textFile));) {
@@ -83,5 +83,9 @@ public class TrackingPixel {
         Init();
         return reportBody;
 
+    }
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        System.out.println(readFiles());
     }
 }
