@@ -81,10 +81,10 @@ public class App {
 
 	public App(int w, int h) {
 		frame = new JFrame();
-		label = new JLabel("<html>Welcome! Please enter your company name to login.</html>");
+		label = new JLabel("<html>Welcome! Please enter your company name.</html>");
 
 		input = new JTextField(10);
-		button1 = new JButton("Log In");
+		button1 = new JButton("Enter");
 		viewEmployees = new JButton("View Employees");
 
 		addEmployees = new JButton("Add Employees");
@@ -480,14 +480,11 @@ public class App {
 			// user input of employee name
 			// String company_name = JOptionPane.showInputDialog("Enter Company");
 			company_name = input.getText();
-			// TODO: add error checking logic to see if table already exists etc.
-
-			// TODO: add error checking logic to see if table already exists etc.
 			String tblName = company_name + "_employees";
 			DatabaseMetaData dbm = conn.getMetaData();
 			ResultSet tables = dbm.getTables(null, null, tblName, null);
 			if (tables.next()) {
-				JOptionPane.showMessageDialog(null, "Company Already Exists", "Results", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Signing in..", "Results", JOptionPane.PLAIN_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(null, "Creating Company", "Results", JOptionPane.PLAIN_MESSAGE);
 				String sql_table = "CREATE TABLE " + company_name + "_employees " + "(id INTEGER not NULL, "
@@ -495,8 +492,7 @@ public class App {
 						+ " PRIMARY KEY ( id ))";
 
 				stmt.executeUpdate(sql_table);
-				JOptionPane.showMessageDialog(null, "Company successfully created!", "Results",
-						JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Company created, signing in now..", "Results", JOptionPane.PLAIN_MESSAGE);
 				// optionsDisplay();
 			}
 			button1.setVisible(false);
@@ -512,7 +508,7 @@ public class App {
 		FlowLayout flow = new FlowLayout();
 		cp.setLayout(flow);
 		frame.setSize(width, height);
-		frame.setTitle("Login");
+		frame.setTitle("Vulnerability Scanner");
 		cp.add(label);
 		cp.add(input);
 		cp.add(button1);
