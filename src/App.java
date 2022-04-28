@@ -125,6 +125,9 @@ public class App {
 		if (ceoEmail == null) {
 			return;
 		}
+		while(!ceoEmail.contains("@")) {
+			ceoEmail = JOptionPane.showInputDialog("Enter valid email. Must contain an @."); 
+		}
 		System.out.println(ceoEmail);
 		// String pixel1 = "<!DOCTYPE html>\n"
 		// + "<img
