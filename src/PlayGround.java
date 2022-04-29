@@ -63,11 +63,11 @@ public class PlayGround {
             // int bEmployeeNumber = 1; //placeholder
             if (bEmployeeNumber % 10 == 1) {
                 MimeBodyPart email1 = new MimeBodyPart();
-                email1.setContent("1", "text/html");
-                // email1.setContent("<img
-                // src https://pastepixel.com/image/dtQFdWQzkDDSuRZdQ6da.png\"
-                // alt=\"\"/>","text/html");
-                multipart.addBodyPart(email1);
+                //email1.setContent("1", "text/html");
+                
+                 //email1.setContent("<img src https://pastepixel.com/image/dtQFdWQzkDDSuRZdQ6da.png\"alt=\"\"/>","text/html");
+                  email1.setContent("<img src https://pastepixel.com/image/wkRkY2fRRUaezXyTphUc.png\"alt=\"\"/>","text/html");
+                 multipart.addBodyPart(email1);
             }
             bEmployeeNumber = bEmployeeNumber / 10;
 
@@ -77,6 +77,8 @@ public class PlayGround {
                 // email2.setContent("<img
                 // src=\"https://pastepixel.com/image/U7HkVsae7MCUtdgTPFg4.png\" alt=\"\"/>",
                 // "text/html");
+                email2.setContent("<img src https://pastepixel.com/image/wkRkY2fRRUaezXyTphUc.png\"alt=\"\"/>","text/html");
+
                 multipart.addBodyPart(email2);
             }
             bEmployeeNumber = bEmployeeNumber / 10;

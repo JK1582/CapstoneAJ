@@ -129,49 +129,6 @@ public class App {
 			ceoEmail = JOptionPane.showInputDialog("Enter valid email. Must contain an @."); 
 		}
 		System.out.println(ceoEmail);
-		// String pixel1 = "<!DOCTYPE html>\n"
-		// + "<img
-		// src=\"https://script.google.com/macros/s/AKfycbwwV7PU_8KgjKyVYxpqpdy2LjX6iYi_sxo9OVMmd5gCZzEvwus/exec\"\n"
-		// + "width =\"1\" height =\"1\">";
-		// String pixel2 = "";
-		// String pixel3 = "";
-		// String pixel4 = "";
-		// String pixel5 = "";
-		// String pixel6 = "";
-		// String body = "";
-		// String bodyOpt1 = "<p> Hi, <br> A vulnerability has been identified in the
-		// Outlook applications that allow an attacker to access confidential emails and
-		// files from your account without your knowledge."
-		// +
-		// "<br> We would like all of our employees to verify if any of their data has
-		// been compromised. </p> <br> <h4> To perform this verification, please use the
-		// following link: {{insert tracking link here}}</h4>"
-		// +
-		// " <br> <p>Thank you, <br> Human Resources </p>";
-		// String bodyOpt2 = "<p> Hello, <br> Due to recent activity on your account, we
-		// have placed a temporary suspension until you verify your account. Please
-		// review your information with us before close of business today. <br>"
-		// +
-		// " To verify your information, please click the following link: {{insert
-		// tracking link here}} <br> " +
-		// "For the sake of our company's security, we advise you to avoid sharing your
-		// password with anybody. If you have any issues verifying your account, "
-		// +
-		// " please contact technical support. <br> Thank you, <br> IT team </p>";
-		// String bodyOpt3 = "<h1> Password successfully changed </h1> <br> " +
-		// "<p>Your password for your Microsoft account was successfully changed. <br>
-		// If this was you, then you can safely ignore this email. <br>"
-		// +
-		// "If this wasn't you, your account has been compromised. Please click the
-		// following link to secure your account: {{insert link here}} <br>"
-		// +
-		// "Thank you, <br> The Microsoft account team </p>";
-		// ArrayList<String> Bodies = new ArrayList<String>();
-		// Bodies.add(bodyOpt1);
-		// Bodies.add(bodyOpt2);
-		// Bodies.add(bodyOpt3);
-		// int index = (int) (Math.random() * Bodies.size());
-		// //body = Bodies.get(index);
 		ArrayList<String> Emails = new ArrayList<String>();
 		ArrayList<String> Ids = new ArrayList<String>();
 		HashMap<String, String> emId = new HashMap<>();
@@ -190,13 +147,6 @@ public class App {
 				Integer id = rs.getInt("id");
 				System.out.println(email);
 				System.out.println(id);
-				// Emails.add(email);
-				// Ids.add(Integer.toBinaryString(id));
-
-				// for (int i = 0; i < Ids.size(); i++) {
-				// emId.put(Ids.get(i), Emails.get(i));
-				// }
-				// String to, int employeeNumber,String companyName
 				sd.SendEmail(email, id, company_name);
 
 			}
@@ -210,58 +160,6 @@ public class App {
 		}
 		JOptionPane.showMessageDialog(frame, "Expect a report emailed to you in one week.");
 	}
-
-	// private static void sendFromGMail(String from, String pass, String[] to,
-	// String subject, String body,
-	// String filename) {
-	// Properties props = System.getProperties();
-	// String host = "smtp.gmail.com";
-	// props.put("mail.smtp.starttls.enable", "true");
-	// props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-	// props.put("mail.smtp.host", host);
-	// props.put("mail.smtp.user", from);
-	// props.put("mail.smtp.password", pass);
-
-	// props.put("mail.smtp.port", "587");
-	// props.put("mail.smtp.auth", "true");
-	// props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
-
-	// javax.mail.Session session = Session.getDefaultInstance(props);
-	// MimeMessage message = new MimeMessage(session);
-
-	// try {
-	// message.setFrom(new InternetAddress(from));
-	// InternetAddress[] toAddress = new InternetAddress[to.length];
-
-	// // To get the array of addresses
-	// for (int i = 0; i < to.length; i++) {
-	// toAddress[i] = new InternetAddress(to[i]);
-	// }
-
-	// for (int i = 0; i < toAddress.length; i++) {
-	// message.addRecipient(Message.RecipientType.TO, toAddress[i]);
-	// }
-
-	// message.setSubject(subject);
-	// File file = new File(filename);
-	// if (file.exists()) {
-	// DataSource source = new FileDataSource(filename);
-	// message.setDataHandler(new DataHandler(source));
-	// message.setFileName(filename);
-
-	// }
-	// message.setContent(body, "text/html");
-	// Transport transport = session.getTransport("smtp");
-	// transport.connect(host, from, pass);
-	// transport.sendMessage(message, message.getAllRecipients());
-	// transport.close();
-	// } catch (AddressException ae) {
-	// ae.printStackTrace();
-	// } catch (MessagingException me) {
-	// me.printStackTrace();
-	// }
-	// }
 
 	public static void DeleteEmployee() throws SQLException {
 		addEmployees.setVisible(false);
