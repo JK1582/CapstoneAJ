@@ -1,6 +1,8 @@
 ## Phishing Vulnerability Scanner
-How to get the database running: 
+
+## How to get the database running: 
 - Run the query " CREATE SCHEMA capstone; " 
+- Run the query " GRANT ALL PRIVILEGES ON capstone * TO 'root'@'localhost';
 - The tables are created through Java as the program runs, greatly simplifying the database setup for a new user running this product
 
 ## Folder Structure
