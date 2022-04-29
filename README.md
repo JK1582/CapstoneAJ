@@ -1,6 +1,7 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Phishing Vulnerability Scanner
+How to get the database running: 
+- Run the query " CREATE SCHEMA capstone; " 
+- The tables are created through Java as the program runs, greatly simplifying the database setup for a new user running this product
 
 ## Folder Structure
 
