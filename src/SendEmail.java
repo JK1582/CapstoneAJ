@@ -16,7 +16,7 @@ public class SendEmail {
 
         String from = USER_NAME;
         String pass = PASSWORD;
-        String subject = "Hello";
+        String subject = "Urgent message";
         String bodyOpt1 = "error";
         String bodyOpt2 = "error";
 
