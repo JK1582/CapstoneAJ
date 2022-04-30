@@ -5,9 +5,6 @@ PastePixel/ Gmail/Google Analytics
   UserName: JKelleyAKlein@gmail.com
   Password: JKelleyAKlein1!
 
-  Password
-
-
 ## How to get the database running: 
 - Run the query " CREATE SCHEMA capstone; " 
 - Run the query " GRANT ALL PRIVILEGES ON capstone * TO 'root'@'localhost';
